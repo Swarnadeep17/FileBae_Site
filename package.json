@@ -1,10 +1,13 @@
 {
   "name": "filebae",
   "version": "1.0.0",
-  "description": "Express-based static hosting for FileBae",
+  "description": "FileBae – Free AI File Tools",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "express": "^4.18.2"
