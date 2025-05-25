@@ -1,30 +1,46 @@
 {
-  "pdf": [
-    {
-      "name": "PDF to Word",
-      "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
-    },
-    {
-      "name": "PDF to Image",
-      "icon": "https://cdn-icons-png.flaticon.com/512/337/337949.png"
-    },
-    {
-      "name": "Merge PDFs",
-      "icon": "https://cdn-icons-png.flaticon.com/512/281/281760.png"
-    }
-  ],
-  "image": [
-    {
-      "name": "Image to PDF",
-      "icon": "https://cdn-icons-png.flaticon.com/512/337/337950.png"
-    },
-    {
-      "name": "Image to Word",
-      "icon": "https://cdn-icons-png.flaticon.com/512/136/136530.png"
-    },
-    {
-      "name": "Compress Image",
-      "icon": "https://cdn-icons-png.flaticon.com/512/3062/3062634.png"
-    }
-  ]
+  "pdf": {
+    "tools": [
+      {
+        "name": "PDF to Word",
+        "id": "pdf_to_word",
+        "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png",
+        "description": "Convert your PDF documents into fully editable Word files with precision."
+      },
+      {
+        "name": "PDF to Image",
+        "id": "pdf_to_image",
+        "icon": "https://cdn-icons-png.flaticon.com/512/337/337949.png",
+        "description": "Transform PDFs into high-quality images for easy sharing and viewing."
+      },
+      {
+        "name": "Merge PDFs",
+        "id": "merge_pdfs",
+        "icon": "https://cdn-icons-png.flaticon.com/512/281/281760.png",
+        "description": "Combine multiple PDF files into a single, streamlined document."
+      }
+    ]
+  },
+  "image": {
+    "tools": [
+      {
+        "name": "Image to PDF",
+        "id": "image_to_pdf",
+        "icon": "https://cdn-icons-png.flaticon.com/512/337/337950.png",
+        "description": "Convert images (JPG, PNG) into lightweight PDF documents effortlessly."
+      },
+      {
+        "name": "Image to Word",
+        "id": "image_to_word",
+        "icon": "https://cdn-icons-png.flaticon.com/512/136/136530.png",
+        "description": "Extract text from images and save them in editable Word format."
+      },
+      {
+        "name": "Compress Image",
+        "id": "compress_image",
+        "icon": "https://cdn-icons-png.flaticon.com/512/3062/3062634.png",
+        "description": "Reduce image file size without compromising on quality."
+      }
+    ]
+  }
 }
