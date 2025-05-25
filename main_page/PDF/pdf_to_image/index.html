@@ -94,6 +94,9 @@
 
   <section class="tool-container">
     <div class="upload-box">
+      <div id="progress-container" style="display: none; margin-top: 1rem;">
+  <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
+      </div>
       <form id="pdfForm" action="https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image" method="POST" enctype="multipart/form-data">
         <p>Select a PDF file to begin:</p>
         <input type="file" name="file" accept="application/pdf" required />
