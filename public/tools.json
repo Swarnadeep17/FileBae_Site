@@ -1,0 +1,30 @@
+{
+  "pdf": [
+    {
+      "name": "PDF to Word",
+      "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
+    },
+    {
+      "name": "PDF to Image",
+      "icon": "https://cdn-icons-png.flaticon.com/512/337/337949.png"
+    },
+    {
+      "name": "Merge PDFs",
+      "icon": "https://cdn-icons-png.flaticon.com/512/281/281760.png"
+    }
+  ],
+  "image": [
+    {
+      "name": "Image to PDF",
+      "icon": "https://cdn-icons-png.flaticon.com/512/337/337950.png"
+    },
+    {
+      "name": "Image to Word",
+      "icon": "https://cdn-icons-png.flaticon.com/512/136/136530.png"
+    },
+    {
+      "name": "Compress Image",
+      "icon": "https://cdn-icons-png.flaticon.com/512/3062/3062634.png"
+    }
+  ]
+}
