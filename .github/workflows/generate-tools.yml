@@ -1,0 +1,40 @@
+name: Generate Tools List
+
+on:
+  push:
+    paths:
+      - 'main_page/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate tools.json
+        run: |
+          mkdir -p public
+          echo "{" > public/tools.json
+          for category in main_page/*; do
+            if [ -d "$category" ]; then
+              catname=$(basename "$category")
+              echo "\"$catname\": [" >> public/tools.json
+              for tool in "$category"/*; do
+                if [ -d "$tool" ]; then
+                  toolname=$(basename "$tool")
+                  echo "  \"$toolname\"," >> public/tools.json
+                fi
+              done | sed '$ s/,$//'
+              echo "]," >> public/tools.json
+            fi
+          done
+          sed -i '$ s/],$/]/' public/tools.json
+          echo "}" >> public/tools.json
+
+      - name: Commit and push tools.json
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add public/tools.json
+          git commit -m "Update tools.json" || echo "No changes to commit"
+          git push
