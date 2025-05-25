@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       .map(link => link.getAttribute("href"))
       .filter(href => href.endsWith("/"));
 
+    // Load metadata from tools.json
+    const toolsMeta = await fetch("tools.json").then(res => res.json());
+
     for (const folder of folders) {
       const type = folder.replace("/", "");
       const res = await fetch(`main_page/${type}/`);
@@ -25,10 +28,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const ul = document.createElement("ul");
       ul.className = "tool-list";
+
       tools.forEach(tool => {
-        const name = tool.replace(".html", "").replace(/_/g, " ");
+        const id = tool.replace(".html", "");
+        const meta = toolsMeta[type]?.tools?.find(t => t.id === id);
+
+        const name = meta?.name || id.replace(/_/g, " ");
+        const icon = meta?.icon || "https://cdn-icons-png.flaticon.com/512/565/565547.png";
+
         const li = document.createElement("li");
-        li.innerHTML = `<a href="main_page/${type}/${tool}">${name}</a>`;
+        li.innerHTML = `
+          <a href="tool.html?tool=${id}" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:10px;">
+            <img src="${icon}" alt="${name}" style="width:24px; height:24px;">
+            <span>${name}</span>
+          </a>`;
         ul.appendChild(li);
       });
 
