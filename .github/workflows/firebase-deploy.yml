@@ -1,20 +1,36 @@
-name: Deploy to Firebase Hosting
+name: Firebase Deploy
 
 on:
   push:
     branches:
-      - main  # or your branch name
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Authenticate with Firebase
-        - run: firebase deploy --project=filebae-13715 --token=${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${HOME}/firebase-key.json
+          firebase auth:login:ci --token "$(cat ${HOME}/firebase-key.json)"
+          firebase use filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build and Deploy
+        run: firebase deploy --only hosting --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
