@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tool | FileBae</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #fff;
+      color: #111;
+    }
+
+    .back {
+      margin-bottom: 1rem;
+      display: inline-block;
+      color: #0077cc;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back" onclick="history.back()">← Back</div>
+    <h1 id="tool-name">Loading...</h1>
+    <p id="tool-desc"></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const toolId = params.get('tool');
+
+    fetch('tools.json')
+      .then(res => res.json())
+      .then(data => {
+        for (let category in data) {
+          const tool = data[category].tools.find(t => t.id === toolId);
+          if (tool) {
+            document.getElementById('tool-name').textContent = tool.name;
+            document.getElementById('tool-desc').textContent = tool.description;
+            break;
+          }
+        }
+      });
+  </script>
+</body>
+</html>
