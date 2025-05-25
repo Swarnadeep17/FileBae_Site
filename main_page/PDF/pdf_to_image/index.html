@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -89,62 +90,65 @@
   <header>
     <h1>PDF to Image</h1>
     <h2>Convert your PDF pages into stunning high-resolution images in seconds.</h2>
-  </header>  <section class="tool-container">
+  </header>
+
+  <section class="tool-container">
     <div class="upload-box">
-      <form id="convert-form">
+      <form id="pdfForm" action="https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image" method="POST" enctype="multipart/form-data">
         <p>Select a PDF file to begin:</p>
-        <input type="file" accept="application/pdf" required /><div class="options">
-      <label>
-        <input type="checkbox" name="split" /> Split into separate images per page
-      </label>
-      <label>
-        <input type="checkbox" name="grayscale" /> Convert to grayscale
-      </label>
-      <label>
-        <input type="checkbox" name="ocr" /> Use AI to extract text (OCR)
-      </label>
+        <input type="file" name="file" accept="application/pdf" required />
+        <div class="options">
+          <label>
+            <input type="checkbox" name="split" /> Split into separate images per page
+          </label>
+          <label>
+            <input type="checkbox" name="grayscale" /> Convert to grayscale
+          </label>
+          <label>
+            <input type="checkbox" name="ocr" /> Use AI to extract text (OCR)
+          </label>
+        </div>
+        <button type="submit">Convert PDF to Image</button>
+      </form>
     </div>
 
-    <button type="submit">Convert PDF to Image</button>
-  </form>
-</div>
+    <div class="card-section">
+      <div class="card">
+        <strong>Instant Conversion</strong>
+        <p>Convert files in under 5 seconds using blazing-fast cloud processing.</p>
+      </div>
+      <div class="card">
+        <strong>AI-Powered OCR</strong>
+        <p>Extract text from scanned PDFs using advanced open-source OCR.</p>
+      </div>
+      <div class="card">
+        <strong>Privacy First</strong>
+        <p>Your files are never stored. Everything runs in-browser or is deleted instantly.</p>
+      </div>
+      <div class="card">
+        <strong>Mobile Ready</strong>
+        <p>Optimized for phones, tablets, and desktops. No app install needed.</p>
+      </div>
+    </div>
 
-<div class="card-section">
-  <div class="card">
-    <strong>Instant Conversion</strong>
-    <p>Convert files in under 5 seconds using blazing-fast cloud processing.</p>
-  </div>
-  <div class="card">
-    <strong>AI-Powered OCR</strong>
-    <p>Extract text from scanned PDFs using advanced open-source OCR.</p>
-  </div>
-  <div class="card">
-    <strong>Privacy First</strong>
-    <p>Your files are never stored. Everything runs in-browser or is deleted instantly.</p>
-  </div>
-  <div class="card">
-    <strong>Mobile Ready</strong>
-    <p>Optimized for phones, tablets, and desktops. No app install needed.</p>
-  </div>
-</div>
+    <section style="margin-top: 3rem; text-align: left">
+      <h3>Why Choose FileBae’s PDF to Image Tool?</h3>
+      <p>
+        Converting PDF files to image formats like JPG or PNG shouldn't be a hassle. Whether you're creating thumbnails, sharing PDF pages as images on social media, or saving important documents in viewable formats, FileBae offers a seamless, ad-free experience that just works.
+      </p>
+      <p>
+        This tool stands out by offering optional AI-powered OCR to extract text from scanned documents, automatic image quality enhancement, and conversion settings like grayscale mode or one-page-per-image splitting—all without any installation.
+      </p>
+      <p>
+        FileBae is different because we don’t collect data, force you through popups, or limit features behind logins. Everything is built for speed, privacy, and accessibility.
+      </p>
+      <p>
+        Try it once and you’ll never go back to bloated file tools again.
+      </p>
+    </section>
+  </section>
 
-<section style="margin-top: 3rem; text-align: left">
-  <h3>Why Choose FileBae’s PDF to Image Tool?</h3>
-  <p>
-    Converting PDF files to image formats like JPG or PNG shouldn't be a hassle. Whether you're creating thumbnails, sharing PDF pages as images on social media, or saving important documents in viewable formats, FileBae offers a seamless, ad-free experience that just works.
-  </p>
-  <p>
-    This tool stands out by offering optional AI-powered OCR to extract text from scanned documents, automatic image quality enhancement, and conversion settings like grayscale mode or one-page-per-image splitting—all without any installation.
-  </p>
-  <p>
-    FileBae is different because we don’t collect data, force you through popups, or limit features behind logins. Everything is built for speed, privacy, and accessibility.
-  </p>
-  <p>
-    Try it once and you’ll never go back to bloated file tools again.
-  </p>
-</section>
-
-  </section>  <footer>
+  <footer>
     FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
   </footer>
 </body>
