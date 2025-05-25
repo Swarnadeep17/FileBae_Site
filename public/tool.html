@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tool | FileBae</title>
+  <title>Tool - FileBae</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <style>
     body {
@@ -12,19 +12,12 @@
       padding: 2rem;
       background: #fff;
       color: #111;
+      text-align: center;
     }
 
-    .back {
-      margin-bottom: 1rem;
-      display: inline-block;
-      color: #0077cc;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: auto;
+    .tool-header img {
+      width: 60px;
+      height: 60px;
     }
 
     h1 {
@@ -34,34 +27,82 @@
 
     p {
       font-size: 1rem;
-      line-height: 1.6;
-      margin-top: 0.5rem;
+      color: #444;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    input[type="file"] {
+      margin: 1rem 0;
+    }
+
+    button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="back" onclick="history.back()">← Back</div>
-    <h1 id="tool-name">Loading...</h1>
-    <p id="tool-desc"></p>
+  <div class="tool-header">
+    <img id="tool-icon" src="" alt="Tool Icon" />
+    <h1 id="tool-name">Tool Name</h1>
+    <p id="tool-description">Loading tool description...</p>
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const toolId = params.get('tool');
+  <input type="file" id="file-input" />
+  <br />
+  <button id="action-button">Start</button>
 
-    fetch('tools.json')
-      .then(res => res.json())
-      .then(data => {
-        for (let category in data) {
-          const tool = data[category].tools.find(t => t.id === toolId);
-          if (tool) {
-            document.getElementById('tool-name').textContent = tool.name;
-            document.getElementById('tool-desc').textContent = tool.description;
-            break;
-          }
+  <footer>
+    FileBae — Free, simple tools with no clutter.
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const toolId = params.get("tool");
+
+      if (!toolId) {
+        document.body.innerHTML = "<p>Tool not found.</p>";
+        return;
+      }
+
+      try {
+        const toolsMeta = await fetch("tools.json").then(res => res.json());
+
+        // Search across all categories
+        let toolData;
+        for (const category in toolsMeta) {
+          toolData = toolsMeta[category].tools.find(t => t.id === toolId);
+          if (toolData) break;
         }
-      });
+
+        if (!toolData) {
+          document.body.innerHTML = "<p>Tool not found in metadata.</p>";
+          return;
+        }
+
+        document.getElementById("tool-name").textContent = toolData.name;
+        document.getElementById("tool-description").textContent = toolData.description;
+        document.getElementById("tool-icon").src = toolData.icon;
+        document.getElementById("action-button").textContent = toolData.action || "Start";
+
+      } catch (err) {
+        console.error(err);
+        document.body.innerHTML = "<p>Error loading tool details.</p>";
+      }
+    });
   </script>
 </body>
 </html>
