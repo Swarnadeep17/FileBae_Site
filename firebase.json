@@ -3,7 +3,22 @@
     "public": "public",
     "cleanUrls": true,
     "trailingSlash": false,
+    "headers": [
+      {
+        "source": "/main_page/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/main_page/**",
+        "destination": "/main_page/index.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"
