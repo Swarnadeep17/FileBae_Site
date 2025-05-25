@@ -1,7 +1,7 @@
 {
   "name": "filebae",
   "version": "1.0.0",
-  "description": "Static frontend for FileBae",
+  "description": "Static site served with Express",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
