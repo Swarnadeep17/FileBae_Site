@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("convert-form");
+  const progressContainer = document.getElementById("progress-container");
+  const progressBar = document.getElementById("progress-bar");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -21,24 +23,46 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("grayscale", grayscale);
     formData.append("ocr", ocr);
 
+    progressContainer.style.display = "block";
+    progressBar.value = 0;
+
     try {
-      const res = await fetch("https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image", {
-        method: "POST",
-        body: formData
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image");
+
+      xhr.upload.addEventListener("progress", (e) => {
+        if (e.lengthComputable) {
+          const percentComplete = (e.loaded / e.total) * 100;
+          progressBar.value = percentComplete;
+        }
       });
 
-      if (!res.ok) throw new Error("Conversion failed.");
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const blob = xhr.response;
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "converted_images.zip";
+          link.click();
+          URL.revokeObjectURL(url);
+        } else {
+          alert("Conversion failed. Please try again.");
+        }
+        progressContainer.style.display = "none";
+      };
 
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "converted_images.zip";
-      link.click();
-      URL.revokeObjectURL(url);
+      xhr.onerror = () => {
+        alert("An error occurred during the upload. Please try again.");
+        progressContainer.style.display = "none";
+      };
+
+      xhr.responseType = "blob";
+      xhr.send(formData);
     } catch (err) {
       alert("Something went wrong. Please try again.");
       console.error(err);
+      progressContainer.style.display = "none";
     }
   });
 });
