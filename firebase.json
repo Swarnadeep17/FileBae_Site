@@ -1,11 +1,7 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "main_page",
     "rewrites": [
-      {
-        "source": "/main_page/PDF/pdf_to_image/api/**",
-        "function": "api"
-      },
       {
         "source": "**",
         "destination": "/index.html"
