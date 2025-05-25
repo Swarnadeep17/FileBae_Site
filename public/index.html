@@ -2,64 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FileBae is your all-in-one file conversion toolkit. Convert PDFs, images, docs & more — quickly, securely, and for free.">
-  <meta name="keywords" content="pdf to word, image to pdf, convert pdf, file tools online, free file converter, filebae, ilovepdf alternative">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
+  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools">
   <meta name="author" content="FileBae">
-  <title>FileBae — Smart File Tools That Just Work</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>FileBae — Convert Files Without the Clutter</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
+      background: #fff;
       color: #111;
     }
     header {
-      padding: 2rem 1rem;
       text-align: center;
+      padding: 2rem 1rem 1rem;
     }
     h1 {
       font-size: 2.4rem;
-      font-weight: bold;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
     h2 {
-      font-size: 1.2rem;
-      color: #666;
       font-weight: normal;
+      font-size: 1rem;
+      color: #555;
     }
-    .tool-grid {
+
+    .category-grid, .tool-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
       padding: 2rem 1rem;
+      max-width: 960px;
+      margin: auto;
     }
-    .tool-card {
-      background-color: #000;
+
+    .card {
+      background: #000;
       color: #fff;
+      border-radius: 12px;
       padding: 1.2rem;
       text-align: center;
-      border-radius: 10px;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-    .tool-card:hover {
-      transform: translateY(-3px);
+
+    .card:hover {
+      transform: translateY(-5px);
     }
-    .tool-card img {
+
+    .card img {
       width: 40px;
       height: 40px;
       margin-bottom: 0.6rem;
     }
+
     .article {
-      padding: 2rem 1.2rem;
-      line-height: 1.7;
-      color: #333;
       max-width: 900px;
       margin: auto;
+      padding: 2rem 1rem;
+      line-height: 1.7;
     }
+
     .article h3 {
       margin-top: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-button {
+      text-align: center;
+      margin-top: -1rem;
+      cursor: pointer;
+      color: #0077cc;
+      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -67,62 +93,81 @@
 
 <header>
   <h1>FileBae</h1>
-  <h2>Smart File Tools That Just Work — Convert, Merge, Edit & More</h2>
+  <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
 </header>
 
-<section class="tool-grid">
-  <div class="tool-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF to Word">
-    <div>PDF to Word</div>
+<section id="category-select" class="category-grid">
+  <div class="card" onclick="showTools('pdf')">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
+    <div>PDF Tools</div>
   </div>
-  <div class="tool-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337949.png" alt="PDF to Image">
-    <div>PDF to Image</div>
+  <div class="card" onclick="showTools('image')">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Tools">
+    <div>Image Tools</div>
   </div>
-  <div class="tool-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image to PDF">
-    <div>Image to PDF</div>
-  </div>
-  <div class="tool-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337948.png" alt="Image to Word">
-    <div>Image to Word</div>
-  </div>
+</section>
+
+<div class="back-button hidden" id="goBack" onclick="goBack()">← Back to File Types</div>
+
+<section id="pdf-tools" class="tool-grid hidden">
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/337/337946.png"><div>PDF to Word</div></div>
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/337/337949.png"><div>PDF to Image</div></div>
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/281/281760.png"><div>Merge PDFs</div></div>
+</section>
+
+<section id="image-tools" class="tool-grid hidden">
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/337/337950.png"><div>Image to PDF</div></div>
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/136/136530.png"><div>Image to Word</div></div>
+  <div class="card"><img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png"><div>Compress Image</div></div>
 </section>
 
 <section class="article">
-  <h2>Why FileBae is the Ultimate File Toolkit You Didn’t Know You Needed</h2>
+  <h2>Clean. Fast. File tools that respect your time.</h2>
   <p>
-    If you're like most people, you’ve spent far too much time wrestling with clunky file conversion tools that are either slow, bloated, or just plain ugly. That’s where FileBae comes in — a clean, no-nonsense interface built to get things done fast.
+    Let’s be honest — most file tools are a mess. Popups, paywalls, login prompts... Who has time for that? FileBae was built for people who just want to get stuff done. Whether you’re uploading a resume, converting scanned homework, or merging PDFs for clients, we keep it fast and simple.
   </p>
 
-  <h3>Lightning-Fast Tools for Everyday Needs</h3>
+  <h3>Why FileBae?</h3>
   <ul>
-    <li><strong>PDF to Word:</strong> Extract text and layout from PDFs, ready to edit in Word instantly.</li>
-    <li><strong>PDF to Image:</strong> Convert any PDF page to high-resolution PNG or JPG.</li>
-    <li><strong>Image to PDF:</strong> Combine multiple images into a single PDF file, beautifully formatted.</li>
-    <li><strong>Image to Word:</strong> Use OCR (Optical Character Recognition) to pull real text from images like screenshots or scans.</li>
+    <li>No ads, no logins, no spam</li>
+    <li>Blazing fast conversions</li>
+    <li>Privacy-first — nothing is stored</li>
+    <li>100% free — forever</li>
   </ul>
 
-  <h3>No Ads. No Tracking. Just Pure Tools.</h3>
+  <h3>What makes us different?</h3>
   <p>
-    We respect your time and privacy. FileBae doesn’t track you, doesn’t clutter the screen with ads, and never asks you to "create an account" just to download your file. It's designed to work seamlessly — on mobile or desktop — without friction.
+    FileBae adapts. New tools are added dynamically — no reloads, no app installs. Just click your file type, pick a tool, and go. All optimized for speed, clarity, and mobile.
   </p>
 
-  <h3>Built for the Future</h3>
+  <h3>Coming soon...</h3>
   <p>
-    Our platform is modular. That means as new tools are developed, they’ll be added dynamically — no refreshes or redesigns needed. Whether it's a new AI-powered feature or just a classic conversion tool, it’ll show up instantly on your homepage.
-  </p>
-
-  <h3>Who’s It For?</h3>
-  <p>
-    Everyone — freelancers, students, teachers, developers, remote workers. If you touch files, FileBae saves your time.
-  </p>
-
-  <h3>Start Using FileBae Now</h3>
-  <p>
-    Scroll up. Tap a tool. Convert your file. That’s it. No clutter. No nonsense. Just a fast, friendly file experience.
+    More tools. More formats. AI-powered features like smart OCR, document summaries, and instant compression without quality loss. We’re just getting started.
   </p>
 </section>
+
+<footer>
+  FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
+</footer>
+
+<script>
+  function showTools(type) {
+    document.getElementById('category-select').classList.add('hidden');
+    document.getElementById('goBack').classList.remove('hidden');
+    if (type === 'pdf') {
+      document.getElementById('pdf-tools').classList.remove('hidden');
+    } else {
+      document.getElementById('image-tools').classList.remove('hidden');
+    }
+  }
+
+  function goBack() {
+    document.getElementById('category-select').classList.remove('hidden');
+    document.getElementById('goBack').classList.add('hidden');
+    document.getElementById('pdf-tools').classList.add('hidden');
+    document.getElementById('image-tools').classList.add('hidden');
+  }
+</script>
 
 </body>
 </html>
