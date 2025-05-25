@@ -5,19 +5,22 @@
         "name": "PDF to Word",
         "id": "pdf_to_word",
         "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png",
-        "description": "Convert your PDF documents into fully editable Word files with precision."
+        "description": "Convert your PDF documents into fully editable Word files with precision.",
+        "action": "Convert PDF"
       },
       {
         "name": "PDF to Image",
         "id": "pdf_to_image",
         "icon": "https://cdn-icons-png.flaticon.com/512/337/337949.png",
-        "description": "Transform PDFs into high-quality images for easy sharing and viewing."
+        "description": "Transform PDFs into high-quality images for easy sharing and viewing.",
+        "action": "Convert to Image"
       },
       {
         "name": "Merge PDFs",
         "id": "merge_pdfs",
         "icon": "https://cdn-icons-png.flaticon.com/512/281/281760.png",
-        "description": "Combine multiple PDF files into a single, streamlined document."
+        "description": "Combine multiple PDF files into a single, streamlined document.",
+        "action": "Merge Files"
       }
     ]
   },
@@ -27,19 +30,22 @@
         "name": "Image to PDF",
         "id": "image_to_pdf",
         "icon": "https://cdn-icons-png.flaticon.com/512/337/337950.png",
-        "description": "Convert images (JPG, PNG) into lightweight PDF documents effortlessly."
+        "description": "Convert images (JPG, PNG) into lightweight PDF documents effortlessly.",
+        "action": "Convert to PDF"
       },
       {
         "name": "Image to Word",
         "id": "image_to_word",
         "icon": "https://cdn-icons-png.flaticon.com/512/136/136530.png",
-        "description": "Extract text from images and save them in editable Word format."
+        "description": "Extract text from images and save them in editable Word format.",
+        "action": "Extract Text"
       },
       {
         "name": "Compress Image",
         "id": "compress_image",
         "icon": "https://cdn-icons-png.flaticon.com/512/3062/3062634.png",
-        "description": "Reduce image file size without compromising on quality."
+        "description": "Reduce image file size without compromising on quality.",
+        "action": "Compress"
       }
     ]
   }
