@@ -28,6 +28,7 @@
       font-size: 1rem;
       color: #555;
     }
+
     .category-grid, .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -36,6 +37,7 @@
       max-width: 960px;
       margin: auto;
     }
+
     .card {
       background: #000;
       color: #fff;
@@ -45,23 +47,61 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
+
     .card:hover {
       transform: translateY(-5px);
     }
+
     .card img {
       width: 40px;
       height: 40px;
       margin-bottom: 0.6rem;
     }
+
+    .highlight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 960px;
+    }
+
+    .highlight {
+      background: #f9f9f9;
+      border: 1px solid #e2e2e2;
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .highlight:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    .highlight h3 {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+      color: #000;
+    }
+
+    .highlight p {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
     .article {
       max-width: 900px;
       margin: auto;
       padding: 2rem 1rem;
       line-height: 1.7;
     }
+
     .article h3 {
       margin-top: 2rem;
     }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -69,9 +109,11 @@
       background: #f5f5f5;
       border-top: 1px solid #ddd;
     }
+
     .hidden {
       display: none;
     }
+
     .back-button {
       text-align: center;
       margin-top: -1rem;
@@ -82,6 +124,7 @@
   </style>
 </head>
 <body>
+
 <header>
   <h1>FileBae</h1>
   <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
@@ -103,8 +146,27 @@
 <section id="pdf-tools" class="tool-grid hidden"></section>
 <section id="image-tools" class="tool-grid hidden"></section>
 
+<section class="highlight-cards">
+  <div class="highlight">
+    <h3>No Signups Required</h3>
+    <p>Access every tool instantly—no accounts, no barriers, just conversion.</p>
+  </div>
+  <div class="highlight">
+    <h3>Ad-Free Forever</h3>
+    <p>We don’t believe in distractions. FileBae is 100% ad-free.</p>
+  </div>
+  <div class="highlight">
+    <h3>AI-Powered Features</h3>
+    <p>Get smart compression, OCR, summaries & more—powered by AI.</p>
+  </div>
+  <div class="highlight">
+    <h3>Mobile-First Design</h3>
+    <p>Built for speed and simplicity across all screens and devices.</p>
+  </div>
+</section>
+
 <section class="article">
-  <h3>Clean. Fast. File tools that respect your time.</h3>
+  <h3>Smarter File Conversions, Built for Speed and Simplicity</h3>
   <p>
     You shouldn't have to wade through pop-ups, sign-ins, or confusing interfaces just to convert a file. At FileBae, we believe file tools should be invisible until you need them—and lightning fast when you do. Whether you're a student compressing a portfolio, a lawyer merging contracts, or a designer converting images for print, FileBae is built to serve real people with real work.
   </p>
@@ -134,11 +196,6 @@
   <h3>Why FileBae Ranks High in Trust</h3>
   <p>
     FileBae isn’t just another utility site. It’s an evolving project with real people behind it who care about utility, speed, design, and transparency. Our lightweight tools are optimized for mobile, desktop, and everything in between—no installations required.
-  </p>
-
-  <h3>Let’s Talk Speed</h3>
-  <p>
-    Our tools are engineered for performance. We leverage edge hosting, modern browser APIs, and progressive enhancements to make every interaction feel seamless. The goal? Convert, compress, or merge a file in under 5 seconds, every time.
   </p>
 
   <h3>Looking Ahead</h3>
