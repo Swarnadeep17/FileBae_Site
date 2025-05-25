@@ -152,9 +152,54 @@
 </footer>
 
 <script>
+  async function loadTools() {
+    try {
+      const res = await fetch('tools.json');
+      const data = await res.json();
+
+      const pdfContainer = document.getElementById('pdf-tools');
+      const imageContainer = document.getElementById('image-tools');
+
+      // Clear existing static HTML (optional: keeps fallback if fetch fails)
+      pdfContainer.innerHTML = '';
+      imageContainer.innerHTML = '';
+
+      data.pdf.forEach(tool => {
+        const card = createCard(tool.icon, tool.name);
+        pdfContainer.appendChild(card);
+      });
+
+      data.image.forEach(tool => {
+        const card = createCard(tool.icon, tool.name);
+        imageContainer.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Failed to load tools.json:', err);
+    }
+  }
+
+  function createCard(icon, label) {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = icon;
+
+    const text = document.createElement('div');
+    text.textContent = label;
+
+    card.appendChild(img);
+    card.appendChild(text);
+
+    return card;
+  }
+
   function showTools(type) {
     document.getElementById('category-select').classList.add('hidden');
     document.getElementById('goBack').classList.remove('hidden');
+    document.getElementById('pdf-tools').classList.add('hidden');
+    document.getElementById('image-tools').classList.add('hidden');
+
     if (type === 'pdf') {
       document.getElementById('pdf-tools').classList.remove('hidden');
     } else {
@@ -168,6 +213,9 @@
     document.getElementById('pdf-tools').classList.add('hidden');
     document.getElementById('image-tools').classList.add('hidden');
   }
+
+  // Load tools on page load
+  loadTools();
 </script>
 
 </body>
