@@ -1,82 +1,76 @@
-const functions = require("firebase-functions");
 const express = require("express");
 const multer = require("multer");
-const cors = require("cors");
-const { fromPath } = require("pdf2pic");
-const sharp = require("sharp");
-const Tesseract = require("tesseract.js");
-const tmp = require("tmp");
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors");
+const { fromPath } = require("pdf2pic");
+const Tesseract = require("tesseract.js");
 
 const app = express();
-app.use(cors({ origin: true }));
+app.use(cors());
 
-const upload = multer({
-  dest: tmp.tmpdir,
-  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB limit
-});
+const upload = multer({ dest: "/tmp" });
 
-app.post("/pdf-to-image", upload.single("file"), async (req, res) => {
-  try {
-    const file = req.file;
-    const { split, grayscale, ocr, resolution, format, quality } = req.body;
+app.post("/api/pdf-to-image", upload.single("file"), async (req, res) => {
+  const file = req.file;
+  const { split, grayscale, ocr } = req.body;
+  const options = {
+    density: 200,
+    saveFilename: "converted",
+    savePath: "/tmp",
+    format: "png",
+    width: 1200,
+    height: 1600,
+    quality: 100,
+  };
 
-    if (!file) return res.status(400).send("No PDF file provided.");
+  const converter = fromPath(file.path, options);
+  const numPages = await getPageCount(file.path);
+  const images = [];
+  const extractedText = [];
 
-    const outputImages = [];
-    const extractedText = [];
+  for (let i = 1; i <= numPages; i++) {
+    const output = await converter(i, true);
+    const imgPath = output.path;
+    const base64 = fs.readFileSync(imgPath).toString("base64");
 
-    const options = {
-      density: parseInt(resolution) || 150,
-      saveFilename: "page",
-      savePath: tmp.tmpdir,
-      format: format || "png",
-      quality: parseInt(quality) || 80,
-    };
-
-    const convert = fromPath(file.path, options);
-    const totalPages = await convert(1, true).then(info => info.pages);
-
-    for (let page = 1; page <= totalPages; page++) {
-      const output = await convert(page);
-
-      let imagePath = output.path;
-      if (grayscale === "on") {
-        const grayPath = path.join(tmp.tmpdir, `gray_${Date.now()}_${page}.${options.format}`);
-        await sharp(imagePath).grayscale().toFile(grayPath);
-        fs.unlinkSync(imagePath);
-        imagePath = grayPath;
-      }
-
-      const buffer = fs.readFileSync(imagePath);
-      const base64 = buffer.toString("base64");
-      outputImages.push({
-        name: `page-${page}.${options.format}`,
-        type: `image/${options.format}`,
-        base64,
-      });
-
-      if (ocr === "on") {
-        const { data } = await Tesseract.recognize(buffer, "eng", { logger: m => console.log(m) });
-        extractedText.push({ page, text: data.text.trim() });
-      }
-
-      // Delete each image after processing
-      fs.unlinkSync(imagePath);
-    }
-
-    // Clean up uploaded PDF
-    fs.unlinkSync(file.path);
-
-    res.json({
-      images: outputImages,
-      extractedText,
+    images.push({
+      name: `page-${i}.png`,
+      base64,
+      type: "image/png",
     });
-  } catch (err) {
-    console.error("Error:", err);
-    res.status(500).send("An error occurred while processing the PDF.");
+
+    if (ocr === "on") {
+      const { data } = await Tesseract.recognize(imgPath, "eng");
+      extractedText.push({ page: i, text: data.text.trim() });
+    }
   }
+
+  // Schedule deletion after 5 minutes
+  setTimeout(() => {
+    try {
+      fs.unlinkSync(file.path);
+      images.forEach((img, i) => {
+        const imgPath = `/tmp/converted.${i + 1}.png`;
+        if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
+      });
+    } catch (e) {
+      console.error("Cleanup failed:", e);
+    }
+  }, 5 * 60 * 1000);
+
+  res.json({
+    images,
+    extractedText,
+    notice: "Files are auto-deleted from server in 5 minutes for your privacy.",
+  });
 });
 
-exports.api = functions.runWith({ timeoutSeconds: 60, memory: "1GB" }).https.onRequest(app);
+async function getPageCount(filePath) {
+  const pdfjsLib = require("pdfjs-dist");
+  const data = new Uint8Array(fs.readFileSync(filePath));
+  const pdf = await pdfjsLib.getDocument({ data }).promise;
+  return pdf.numPages;
+}
+
+module.exports = app;
