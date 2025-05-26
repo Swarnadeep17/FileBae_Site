@@ -1,68 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("convert-form");
-  const progressContainer = document.getElementById("progress-container");
-  const progressBar = document.getElementById("progress-bar");
+document.getElementById("pdfForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const progress = document.getElementById("progress");
+  const result = document.getElementById("result");
+  progress.style.display = "block";
+  result.innerHTML = "";
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  const formData = new FormData(form);
+  try {
+    const response = await fetch("https://us-central1-filebae-13715.cloudfunctions.net/pdf-to-image", {
+      method: "POST",
+      body: formData
+    });
+    const blob = await response.blob();
 
-    const fileInput = form.querySelector('input[type="file"]');
-    const split = form.querySelector('input[name="split"]').checked;
-    const grayscale = form.querySelector('input[name="grayscale"]').checked;
-    const ocr = form.querySelector('input[name="ocr"]').checked;
-
-    const file = fileInput.files[0];
-    if (!file) {
-      alert("Please select a PDF file.");
-      return;
+    if (blob.type.startsWith("application/zip")) {
+      const url = URL.createObjectURL(blob);
+      result.innerHTML = `<a href="${url}" download="images.zip">Download Images</a>`;
+    } else {
+      result.innerHTML = "Unexpected response format.";
     }
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("split", split);
-    formData.append("grayscale", grayscale);
-    formData.append("ocr", ocr);
-
-    progressContainer.style.display = "block";
-    progressBar.value = 0;
-
-    try {
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image");
-
-      xhr.upload.addEventListener("progress", (e) => {
-        if (e.lengthComputable) {
-          const percentComplete = (e.loaded / e.total) * 100;
-          progressBar.value = percentComplete;
-        }
-      });
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const blob = xhr.response;
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = "converted_images.zip";
-          link.click();
-          URL.revokeObjectURL(url);
-        } else {
-          alert("Conversion failed. Please try again.");
-        }
-        progressContainer.style.display = "none";
-      };
-
-      xhr.onerror = () => {
-        alert("An error occurred during the upload. Please try again.");
-        progressContainer.style.display = "none";
-      };
-
-      xhr.responseType = "blob";
-      xhr.send(formData);
-    } catch (err) {
-      alert("Something went wrong. Please try again.");
-      console.error(err);
-      progressContainer.style.display = "none";
-    }
-  });
+  } catch (err) {
+    console.error(err);
+    result.innerHTML = "Conversion failed. Please try again.";
+  } finally {
+    progress.style.display = "none";
+  }
 });
