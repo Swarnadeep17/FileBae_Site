@@ -186,6 +186,15 @@
     const result = await res.json();
     progress.value = 100;
 
+if (result.notice) {
+  const note = document.createElement("p");
+  note.style.color = "#555";
+  note.style.fontSize = "0.9rem";
+  note.style.marginTop = "1rem";
+  note.textContent = result.notice;
+  document.body.appendChild(note);
+}
+
     // Show images
     result.images.forEach((img, index) => {
       const link = document.createElement("a");
