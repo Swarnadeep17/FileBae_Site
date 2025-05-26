@@ -1,0 +1,5 @@
+run:
+  service: pdf-to-image
+  runtime: nodejs18
+  entrypoint: node index.js
+  env: standard
