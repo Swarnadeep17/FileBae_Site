@@ -4,6 +4,10 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/main_page/pdf/pdf_to_image/api/**",
+        "function": "api"
+      },
+      {
         "source": "/",
         "destination": "/index.html"
       },
@@ -16,5 +20,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "source": "public/main_page/pdf/pdf_to_image/functions"
   }
 }
