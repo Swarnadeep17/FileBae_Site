@@ -8,12 +8,12 @@
         "function": "api"
       },
       {
-        "source": "/",
-        "destination": "/index.html"
-      },
-      {
         "source": "/main_page/**",
         "destination": "/main_page/index.html"
+      },
+      {
+        "source": "/",
+        "destination": "/index.html"
       },
       {
         "source": "**",
