@@ -27,12 +27,16 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
 
-      - name: Install Dependencies
+      # Install dependencies inside the custom functions folder
+      - name: Install Functions Dependencies (PDF to Image)
+        working-directory: public/main_page/pdf/pdf_to_image/functions
         run: npm install
 
       - name: Deploy Hosting and Functions
         run: |
-          firebase deploy --only hosting,functions --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          firebase deploy --only hosting,functions \
+            --project filebae-13715 \
+            --token "$(cat ${HOME}/firebase-key.json)"
 
       - name: Commit tools.json with GH_PAT
         env:
