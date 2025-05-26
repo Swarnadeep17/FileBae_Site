@@ -178,7 +178,7 @@
       progress.value = 20;
 
       // ✅ Updated Cloud Function endpoint
-      const res = await fetch("/api/pdf-to-image", {
+      const res = await fetch("https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image", {
         method: "POST",
         body: formData,
       });
