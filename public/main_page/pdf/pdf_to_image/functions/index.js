@@ -1,55 +1,64 @@
-const functions = require("firebase-functions");
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-const { exec } = require("child_process");
-const Tesseract = require("tesseract.js");
+// File: public/main_page/pdf/pdf_to_image/functions/index.js
 
-const app = express();
-app.use(cors({ origin: true }));
+const express = require("express"); const cors = require("cors"); const Busboy = require("busboy"); const fs = require("fs"); const path = require("path"); const os = require("os"); const sharp = require("sharp"); const { fromPath } = require("pdf2pic"); const Tesseract = require("tesseract.js"); const app = express();
 
-const upload = multer({ dest: "/tmp" });
+app.use(cors());
 
-app.post("/convert", upload.single("file"), async (req, res) => {
-  try {
-    const filePath = req.file.path;
-    const fileName = req.file.originalname.replace(/\.[^/.]+$/, "");
-    const split = req.body.split === "on";
-    const grayscale = req.body.grayscale === "on";
-    const ocr = req.body.ocr === "on";
+app.post("/pdf-to-image", async (req, res) => { const busboy = new Busboy({ headers: req.headers }); const tmpDir = os.tmpdir(); const fields = {}; let uploadedFilePath = "";
 
-    const outputDir = `/tmp/${Date.now()}_${fileName}`;
-    fs.mkdirSync(outputDir);
+busboy.on("file", (fieldname, file, filename) => { if (!filename.endsWith(".pdf")) { return res.status(400).json({ error: "Only PDF files allowed" }); } uploadedFilePath = path.join(tmpDir, ${Date.now()}-${filename}); const writeStream = fs.createWriteStream(uploadedFilePath); file.pipe(writeStream); });
 
-    const flags = grayscale ? "-gray" : "";
-    const cmd = `pdftoppm ${flags} -jpeg "${filePath}" "${outputDir}/page"`;
+busboy.on("field", (fieldname, val) => { fields[fieldname] = val; });
 
-    exec(cmd, async (error) => {
-      if (error) return res.status(500).send("Conversion failed.");
+busboy.on("finish", async () => { try { const format = fields.format || "jpg"; const split = fields.split === "on"; const grayscale = fields.grayscale === "on"; const ocr = fields.ocr === "on"; const resolution = parseInt(fields.resolution || "144"); const quality = parseInt(fields.quality || "80");
 
-      const files = fs.readdirSync(outputDir).filter(f => f.endsWith(".jpg"));
-      const responses = [];
+const outputDir = path.join(tmpDir, `converted-${Date.now()}`);
+  fs.mkdirSync(outputDir);
 
-      for (const file of files) {
-        const fullPath = path.join(outputDir, file);
-        const image = fs.readFileSync(fullPath, { encoding: "base64" });
+  const options = {
+    density: resolution,
+    saveFilename: "page",
+    savePath: outputDir,
+    format,
+    quality,
+  };
 
-        if (ocr) {
-          const { data: { text } } = await Tesseract.recognize(fullPath, "eng");
-          responses.push({ filename: file, image, text });
-        } else {
-          responses.push({ filename: file, image });
-        }
-      }
+  const convert = fromPath(uploadedFilePath, options);
+  const info = await convert.bulk(-1);
 
-      res.status(200).json({ success: true, files: responses });
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error");
+  let results = [];
+  let ocrText = "";
+
+  for (let page of info) {
+    let imgPath = page.path;
+    const base64 = fs.readFileSync(imgPath, { encoding: "base64" });
+    results.push({ name: path.basename(imgPath), base64 });
+
+    if (ocr) {
+      const { data } = await Tesseract.recognize(imgPath, "eng");
+      ocrText += `\nPage ${results.length}:\n` + data.text + "\n";
+    }
   }
+
+  // Cleanup after 5 minutes
+  setTimeout(() => {
+    try {
+      fs.rmSync(uploadedFilePath);
+      fs.rmSync(outputDir, { recursive: true });
+    } catch (e) {}
+  }, 5 * 60 * 1000);
+
+  res.json({ images: results, ocr: ocr ? ocrText : null });
+} catch (err) {
+  console.error(err);
+  res.status(500).json({ error: "Conversion failed." });
+}
+
 });
 
-exports.api = functions.https.onRequest(app);
+req.pipe(busboy); });
+
+app.get("/", (req, res) => { res.send("PDF to Image API is running."); });
+
+const PORT = process.env.PORT || 8080; app.listen(PORT, () => console.log(Server running on port ${PORT}));
+
