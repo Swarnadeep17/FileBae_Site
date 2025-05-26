@@ -1,40 +1,55 @@
-const functions = require('firebase-functions');
-const express = require('express');
-const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
-const cors = require('cors');
+const functions = require("firebase-functions");
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+const { exec } = require("child_process");
+const Tesseract = require("tesseract.js");
 
 const app = express();
-app.use(cors());
-const upload = multer({ dest: '/tmp/' });
+app.use(cors({ origin: true }));
 
-app.post('/pdf-to-image', upload.single('file'), (req, res) => {
-  const file = req.file;
-  const options = req.body;
-  const fileId = uuidv4();
-  const outputPath = `/tmp/${fileId}`;
+const upload = multer({ dest: "/tmp" });
 
-  const grayscale = options.grayscale ? '-colorspace Gray' : '';
-  const density = 200;
+app.post("/convert", upload.single("file"), async (req, res) => {
+  try {
+    const filePath = req.file.path;
+    const fileName = req.file.originalname.replace(/\.[^/.]+$/, "");
+    const split = req.body.split === "on";
+    const grayscale = req.body.grayscale === "on";
+    const ocr = req.body.ocr === "on";
 
-  const convertCommand = `convert -density ${density} ${grayscale} "${file.path}" "${outputPath}-%03d.jpg"`;
+    const outputDir = `/tmp/${Date.now()}_${fileName}`;
+    fs.mkdirSync(outputDir);
 
-  exec(convertCommand, async (error, stdout, stderr) => {
-    if (error) {
-      console.error('Conversion error:', error);
-      return res.status(500).send('Conversion failed');
-    }
+    const flags = grayscale ? "-gray" : "";
+    const cmd = `pdftoppm ${flags} -jpeg "${filePath}" "${outputDir}/page"`;
 
-    const images = fs.readdirSync('/tmp')
-      .filter(f => f.startsWith(fileId) && f.endsWith('.jpg'))
-      .map(f => path.resolve('/tmp', f));
+    exec(cmd, async (error) => {
+      if (error) return res.status(500).send("Conversion failed.");
 
-    res.setHeader('Content-Type', 'application/json');
-    res.send({ images: images.map(img => `/download/${path.basename(img)}`) });
-  });
+      const files = fs.readdirSync(outputDir).filter(f => f.endsWith(".jpg"));
+      const responses = [];
+
+      for (const file of files) {
+        const fullPath = path.join(outputDir, file);
+        const image = fs.readFileSync(fullPath, { encoding: "base64" });
+
+        if (ocr) {
+          const { data: { text } } = await Tesseract.recognize(fullPath, "eng");
+          responses.push({ filename: file, image, text });
+        } else {
+          responses.push({ filename: file, image });
+        }
+      }
+
+      res.status(200).json({ success: true, files: responses });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
 });
 
 exports.api = functions.https.onRequest(app);
