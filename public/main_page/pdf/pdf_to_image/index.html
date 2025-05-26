@@ -61,6 +61,10 @@
       cursor: pointer;
       margin-top: 1rem;
     }
+    .progress {
+      margin-top: 1rem;
+      display: none;
+    }
     .card-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -94,12 +98,10 @@
 
   <section class="tool-container">
     <div class="upload-box">
-      <div id="progress-container" style="display: none; margin-top: 1rem;">
-  <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
-      </div>
-      <form id="pdfForm" action="https://us-central1-filebae-13715.cloudfunctions.net/api/pdf-to-image" method="POST" enctype="multipart/form-data">
+      <form id="pdfForm" enctype="multipart/form-data">
         <p>Select a PDF file to begin:</p>
         <input type="file" name="file" accept="application/pdf" required />
+
         <div class="options">
           <label>
             <input type="checkbox" name="split" /> Split into separate images per page
@@ -111,8 +113,12 @@
             <input type="checkbox" name="ocr" /> Use AI to extract text (OCR)
           </label>
         </div>
+
         <button type="submit">Convert PDF to Image</button>
       </form>
+
+      <div class="progress" id="progress">Processing...</div>
+      <div id="result" style="margin-top: 1rem;"></div>
     </div>
 
     <div class="card-section">
@@ -154,6 +160,40 @@
   <footer>
     FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
   </footer>
-  <script src="script.js"></script>
+
+  <script>
+    const form = document.getElementById("pdfForm");
+    const progress = document.getElementById("progress");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      progress.style.display = "block";
+      result.innerHTML = "";
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("https://us-central1-filebae-13715.cloudfunctions.net/pdf-to-image", {
+          method: "POST",
+          body: formData
+        });
+
+        const blob = await response.blob();
+
+        if (response.ok && blob.type === "application/zip") {
+          const url = URL.createObjectURL(blob);
+          result.innerHTML = `<a href="${url}" download="converted_images.zip">Download Images</a>`;
+        } else {
+          result.textContent = "Conversion failed or unsupported response.";
+        }
+      } catch (err) {
+        console.error(err);
+        result.textContent = "Something went wrong. Try again later.";
+      } finally {
+        progress.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
