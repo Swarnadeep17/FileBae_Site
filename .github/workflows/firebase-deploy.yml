@@ -27,7 +27,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
 
-      - name: Install Dependencies for Functions
+      - name: Install Functions Dependencies
         working-directory: functions
         run: npm install
 
