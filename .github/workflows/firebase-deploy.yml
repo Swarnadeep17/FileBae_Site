@@ -28,7 +28,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
 
       - name: Install Dependencies for Functions
-        working-directory: public/main_page/pdf/pdf_to_image/functions
+        working-directory: functions
         run: npm install
 
       - name: Deploy Hosting and Functions
