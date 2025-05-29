@@ -24,13 +24,10 @@ jobs:
       - name: Authenticate with Firebase
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${HOME}/firebase-key.json
+          firebase use --add filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
 
-      - name: Install Dependencies for Functions
-        working-directory: functions
-        run: npm install
-
-      - name: Deploy Hosting and Functions
+      - name: Deploy to Firebase Hosting
         run: |
-          firebase deploy --only hosting,functions --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          firebase deploy --only hosting --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
