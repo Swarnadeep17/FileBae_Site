@@ -157,22 +157,26 @@
     const now = new Date();
     const monthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
     const statsRef = doc(db, "siteStats", monthKey);
-    const docSnap = await getDoc(statsRef);
 
-    if (docSnap.exists()) {
-      await updateDoc(statsRef, { visits: increment(1) });
-    } else {
-      await setDoc(statsRef, { visits: 1, downloads: 0 });
+    try {
+      const docSnap = await getDoc(statsRef);
+
+      if (docSnap.exists()) {
+        await updateDoc(statsRef, { visits: increment(1) });
+      } else {
+        await setDoc(statsRef, { visits: 1, downloads: 0 });
+      }
+
+      const updatedSnap = await getDoc(statsRef);
+      const data = updatedSnap.data();
+      document.getElementById("stats").textContent = `Visitors this month: ${data.visits} | Files downloaded: ${data.downloads}`;
+    } catch (err) {
+      console.error("❌ Firestore Error:", err);
+      document.getElementById("stats").textContent = "⚠️ Failed to load stats.";
     }
-
-    const updated = await getDoc(statsRef);
-    const data = updated.data();
-    document.getElementById("stats").textContent = `Visitors this month: ${data.visits} | Files downloaded: ${data.downloads}`;
   }
 
-  trackStats().catch(() => {
-    document.getElementById("stats").textContent = "Stats unavailable.";
-  });
+  trackStats();
 </script>
 
 </body>
