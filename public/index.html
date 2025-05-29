@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
+  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools">
+  <meta name="author" content="FileBae">
+  <title>FileBae — Convert Files Without the Clutter</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #111;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.2rem;
+    }
+    h2 {
+      font-weight: normal;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .category-grid, .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      padding: 2rem 1rem;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .card {
+      background: #000;
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.6rem;
+    }
+
+    .article {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+      line-height: 1.7;
+    }
+
+    .article h3 {
+      margin-top: 2rem;
+    }
+
+    .back-button {
+      text-align: center;
+      margin-top: -1rem;
+      cursor: pointer;
+      color: #0077cc;
+      font-size: 0.9rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>FileBae</h1>
+  <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
+</header>
+
+<section id="category-select" class="category-grid">
+  <div class="card" onclick="showTools('pdf')">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
+    <div>PDF Tools</div>
+  </div>
+  <div class="card" onclick="showTools('image')">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Tools">
+    <div>Image Tools</div>
+  </div>
+</section>
+
+<div class="back-button hidden" id="goBack" onclick="goBack()">← Back to File Types</div>
+
+<section id="pdf-tools" class="tool-grid hidden"></section>
+<section id="image-tools" class="tool-grid hidden"></section>
+
+<section class="article">
+  <h3>Smarter File Conversions, Built for Speed and Simplicity</h3>
+  <p>
+    At FileBae, we believe file tools should be invisible until you need them — and lightning fast when you do. Whether you're merging contracts or converting images, FileBae keeps things seamless, minimal, and private.
+  </p>
+
+  <h3>No Gimmicks. Just Great Tools.</h3>
+  <p>
+    FileBae flips the script. No sign-up walls, no slow ads, no fake buttons. Just clean utilities that work on any device.
+  </p>
+
+  <h3>What You Can Do with FileBae</h3>
+  <ul>
+    <li><strong>PDF Tools:</strong> Convert PDFs to editable Word or high-quality images, or merge multiple files into one.</li>
+    <li><strong>Image Tools:</strong> Create PDFs from images, compress PNGs, or extract text using OCR.</li>
+    <li><strong>AI Features:</strong> Future tools will include AI auto-clean, summarizer, and OCR enhancements.</li>
+  </ul>
+</section>
+
+<footer>
+  FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
+</footer>
+
+<script>
+  async function loadTools() {
+    try {
+      const res = await fetch("tools.json");
+      const data = await res.json();
+
+      const pdfContainer = document.getElementById("pdf-tools");
+      const imageContainer = document.getElementById("image-tools");
+
+      pdfContainer.innerHTML = '';
+      imageContainer.innerHTML = '';
+
+      data.pdf.tools.forEach(tool => {
+        const card = createCard(tool.icon, tool.name, tool.id, 'pdf');
+        pdfContainer.appendChild(card);
+      });
+
+      data.image.tools.forEach(tool => {
+        const card = createCard(tool.icon, tool.name, tool.id, 'image');
+        imageContainer.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Failed to load tools.json:", err);
+    }
+  }
+
+  function createCard(icon, label, id, type) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.onclick = () => window.location.href = `main_page/${type}/${id}/index.html`;
+
+    const img = document.createElement("img");
+    img.src = icon;
+    img.alt = label;
+
+    const text = document.createElement("div");
+    text.textContent = label;
+
+    card.appendChild(img);
+    card.appendChild(text);
+
+    return card;
+  }
+
+  function showTools(type) {
+    document.getElementById("category-select").classList.add("hidden");
+    document.getElementById("goBack").classList.remove("hidden");
+    document.getElementById("pdf-tools").classList.add("hidden");
+    document.getElementById("image-tools").classList.add("hidden");
+
+    if (type === "pdf") {
+      document.getElementById("pdf-tools").classList.remove("hidden");
+    } else {
+      document.getElementById("image-tools").classList.remove("hidden");
+    }
+  }
+
+  function goBack() {
+    document.getElementById("category-select").classList.remove("hidden");
+    document.getElementById("goBack").classList.add("hidden");
+    document.getElementById("pdf-tools").classList.add("hidden");
+    document.getElementById("image-tools").classList.add("hidden");
+  }
+
+  loadTools();
+</script>
+
+</body>
+</html>
