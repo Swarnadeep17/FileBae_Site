@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
-  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools">
+  <meta name="description" content="FileBae – Fast, secure, and ad-free tools for all your file conversions. PDF, Image, Word, Excel and more." />
+  <meta name="keywords" content="file converter, pdf to image, pdf tools, word to pdf, image to pdf, excel converter, free online tools" />
   <meta name="author" content="FileBae">
-  <title>FileBae — Convert Files Without the Clutter</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <title>FileBae — Convert Files Without Clutter</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4727/4727420.png" type="image/png">
   <style>
     body {
       margin: 0;
@@ -21,15 +21,14 @@
     }
     h1 {
       font-size: 2.4rem;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.5rem;
     }
     h2 {
       font-weight: normal;
       font-size: 1rem;
       color: #555;
     }
-
-    .category-grid, .tool-grid {
+    .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1rem;
@@ -37,214 +36,158 @@
       max-width: 960px;
       margin: auto;
     }
-
     .card {
       background: #000;
       color: #fff;
       border-radius: 12px;
       padding: 1.2rem;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
       cursor: pointer;
     }
-
     .card:hover {
       transform: translateY(-5px);
     }
-
     .card img {
       width: 40px;
       height: 40px;
       margin-bottom: 0.6rem;
     }
-
-    .article {
-      max-width: 900px;
-      margin: auto;
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
       padding: 2rem 1rem;
-      line-height: 1.7;
+      max-width: 960px;
+      margin: auto;
     }
-
-    .article h3 {
-      margin-top: 2rem;
-    }
-
-    .back-button {
+    .highlight {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid #ddd;
       text-align: center;
-      margin-top: -1rem;
-      cursor: pointer;
-      color: #0077cc;
+    }
+    .highlight h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .highlight p {
       font-size: 0.9rem;
+      color: #333;
     }
-
-    .hidden {
-      display: none;
+    .stats {
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 1rem;
+      color: #555;
     }
-
     footer {
       text-align: center;
-      padding: 1rem;
       font-size: 0.9rem;
-      background: #f5f5f5;
+      background: #f8f8f8;
+      padding: 1rem;
       border-top: 1px solid #ddd;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>FileBae</h1>
+    <h2>Convert files instantly. No logins. No ads. Just tools that work.</h2>
+  </header>
 
-<header>
-  <h1>FileBae</h1>
-  <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
-</header>
+  <section class="tool-grid">
+    <div class="card" onclick="window.location.href='main_page/pdf/index.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF">
+      <div>PDF Tools</div>
+    </div>
+    <div class="card" onclick="window.location.href='main_page/image/index.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image">
+      <div>Image Tools</div>
+    </div>
+    <div class="card" onclick="window.location.href='main_page/word/index.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281760.png" alt="Word">
+      <div>Word Tools</div>
+    </div>
+    <div class="card" onclick="window.location.href='main_page/excel/index.html'">
+      <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Excel">
+      <div>Excel Tools</div>
+    </div>
+  </section>
 
-<section id="category-select" class="category-grid">
-  <div class="card" onclick="showTools('pdf')">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
-    <div>PDF Tools</div>
+  <section class="highlights">
+    <div class="highlight">
+      <h3>No Signups Required</h3>
+      <p>Access every tool instantly. No logins. No limits.</p>
+    </div>
+    <div class="highlight">
+      <h3>100% Ad-Free</h3>
+      <p>Zero clutter, no popups. Just clean conversion.</p>
+    </div>
+    <div class="highlight">
+      <h3>Privacy Focused</h3>
+      <p>We don’t store your files. What you upload is yours only.</p>
+    </div>
+    <div class="highlight">
+      <h3>AI-Powered Tools</h3>
+      <p>Extract text, enhance images, compress smartly — all using AI.</p>
+    </div>
+    <div class="highlight">
+      <h3>Built for Speed</h3>
+      <p>Everything is optimized for quick conversion and minimal wait.</p>
+    </div>
+    <div class="highlight">
+      <h3>Made for Everyone</h3>
+      <p>Students, professionals, and creators — this platform is for you.</p>
+    </div>
+  </section>
+
+  <div class="stats">
+    Visitors this month: <span id="visitCount">...</span> |
+    Files downloaded: <span id="downloadCount">...</span>
   </div>
-  <div class="card" onclick="showTools('image')">
-    <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Tools">
-    <div>Image Tools</div>
-  </div>
-</section>
 
-<div class="back-button hidden" id="goBack" onclick="goBack()">← Back to File Types</div>
+  <footer>
+    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
+  </footer>
 
-<section id="pdf-tools" class="tool-grid hidden"></section>
-<section id="image-tools" class="tool-grid hidden"></section>
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-<section class="article">
-  <h3>Smarter File Conversions, Built for Speed and Simplicity</h3>
-  <p>
-    At FileBae, we believe file tools should be invisible until you need them — and lightning fast when you do. Whether you're merging contracts or converting images, FileBae keeps things seamless, minimal, and private.
-  </p>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzvOQUAd_2JQ4xDHJgK9jzF_hNMqR8Uy8",
+      authDomain: "filebae-13715.firebaseapp.com",
+      projectId: "filebae-13715",
+      storageBucket: "filebae-13715.firebasestorage.app",
+      messagingSenderId: "646428216195",
+      appId: "1:646428216195:web:6be3b02c94fccc8cd444b6",
+      measurementId: "G-SS0C8YW3YE"
+    };
 
-  <h3>No Gimmicks. Just Great Tools.</h3>
-  <p>
-    FileBae flips the script. No sign-up walls, no slow ads, no fake buttons. Just clean utilities that work on any device.
-  </p>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  <h3>What You Can Do with FileBae</h3>
-  <ul>
-    <li><strong>PDF Tools:</strong> Convert PDFs to editable Word or high-quality images, or merge multiple files into one.</li>
-    <li><strong>Image Tools:</strong> Create PDFs from images, compress PNGs, or extract text using OCR.</li>
-    <li><strong>AI Features:</strong> Future tools will include AI auto-clean, summarizer, and OCR enhancements.</li>
-  </ul>
-</section>
-
-<footer>
-  FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
-<section id="stats" style="text-align:center; font-size:0.95rem; color:#333; margin-top:1rem;">
-  <p>Loading stats...</p>
-</section>
-</footer>
-
-<script>
-  async function loadTools() {
-    try {
-      const res = await fetch("tools.json");
-      const data = await res.json();
-
-      const pdfContainer = document.getElementById("pdf-tools");
-      const imageContainer = document.getElementById("image-tools");
-
-      pdfContainer.innerHTML = '';
-      imageContainer.innerHTML = '';
-
-      data.pdf.tools.forEach(tool => {
-        const card = createCard(tool.icon, tool.name, tool.id, 'pdf');
-        pdfContainer.appendChild(card);
-      });
-
-      data.image.tools.forEach(tool => {
-        const card = createCard(tool.icon, tool.name, tool.id, 'image');
-        imageContainer.appendChild(card);
-      });
-    } catch (err) {
-      console.error("Failed to load tools.json:", err);
+    async function updateVisitorCount() {
+      const now = new Date();
+      const docId = `${now.getFullYear()}-${now.getMonth() + 1}`;
+      const ref = doc(db, "siteStats", docId);
+      const snapshot = await getDoc(ref);
+      if (!snapshot.exists()) {
+        await setDoc(ref, { visits: 1, downloads: 0 });
+        document.getElementById("visitCount").textContent = 1;
+        document.getElementById("downloadCount").textContent = 0;
+      } else {
+        await updateDoc(ref, { visits: increment(1) });
+        const data = (await getDoc(ref)).data();
+        document.getElementById("visitCount").textContent = data.visits;
+        document.getElementById("downloadCount").textContent = data.downloads;
+      }
     }
-  }
 
-  function createCard(icon, label, id, type) {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.onclick = () => window.location.href = `main_page/${type}/${id}/index.html`;
-
-    const img = document.createElement("img");
-    img.src = icon;
-    img.alt = label;
-
-    const text = document.createElement("div");
-    text.textContent = label;
-
-    card.appendChild(img);
-    card.appendChild(text);
-
-    return card;
-  }
-
-  function showTools(type) {
-    document.getElementById("category-select").classList.add("hidden");
-    document.getElementById("goBack").classList.remove("hidden");
-    document.getElementById("pdf-tools").classList.add("hidden");
-    document.getElementById("image-tools").classList.add("hidden");
-
-    if (type === "pdf") {
-      document.getElementById("pdf-tools").classList.remove("hidden");
-    } else {
-      document.getElementById("image-tools").classList.remove("hidden");
-    }
-  }
-
-  function goBack() {
-    document.getElementById("category-select").classList.remove("hidden");
-    document.getElementById("goBack").classList.add("hidden");
-    document.getElementById("pdf-tools").classList.add("hidden");
-    document.getElementById("image-tools").classList.add("hidden");
-  }
-
-  loadTools();
-</script>
-
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "filebae-13715.firebaseapp.com",
-    projectId: "filebae-13715",
-    storageBucket: "filebae-13715.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  const monthKey = new Date().toISOString().slice(0, 7); // e.g. "2025-05"
-
-  // Increment visit
-  const visitsRef = db.collection("stats").doc(monthKey);
-  visitsRef.set({ visits: firebase.firestore.FieldValue.increment(1) }, { merge: true });
-
-  // Show counts
-  visitsRef.get().then(doc => {
-    if (doc.exists) {
-      const data = doc.data();
-      document.getElementById("stats").innerHTML = `
-        <p><strong>${data.visits || 0}</strong> visitors this month</p>
-        <p><strong>${data.downloads || 0}</strong> file downloads</p>
-      `;
-    }
-  });
-
-  // Call this in your download success code:
-  function incrementDownloads() {
-    visitsRef.set({ downloads: firebase.firestore.FieldValue.increment(1) }, { merge: true });
-  }
-</script>
-
+    updateVisitorCount();
+  </script>
 </body>
 </html>
