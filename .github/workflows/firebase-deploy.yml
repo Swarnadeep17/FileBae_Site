@@ -1,4 +1,4 @@
-name: Firebase Deploy
+name: Firebase Classic Hosting Deploy
 
 on:
   push:
@@ -22,7 +22,9 @@ jobs:
         run: npm install -g firebase-tools
 
       - name: Authenticate with Firebase
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ${HOME}/firebase-key.json
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${HOME}/firebase-key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/firebase-key.json
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
 
@@ -30,6 +32,17 @@ jobs:
         working-directory: functions
         run: npm install
 
-      - name: Deploy Hosting + Functions
+      - name: Deploy Hosting and Functions
         run: |
           firebase deploy --only hosting,functions --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+
+      - name: Commit tools.json with GH_PAT
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
+          git add public/tools.json
+          git commit -m "Update tools.json" || echo "No changes to commit"
+          git push
