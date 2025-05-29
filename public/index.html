@@ -203,5 +203,45 @@
   loadTools();
 </script>
 
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "filebae-13715.firebaseapp.com",
+    projectId: "filebae-13715",
+    storageBucket: "filebae-13715.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const monthKey = new Date().toISOString().slice(0, 7); // e.g. "2025-05"
+
+  // Increment visit
+  const visitsRef = db.collection("stats").doc(monthKey);
+  visitsRef.set({ visits: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+
+  // Show counts
+  visitsRef.get().then(doc => {
+    if (doc.exists) {
+      const data = doc.data();
+      document.getElementById("stats").innerHTML = `
+        <p><strong>${data.visits || 0}</strong> visitors this month</p>
+        <p><strong>${data.downloads || 0}</strong> file downloads</p>
+      `;
+    }
+  });
+
+  // Call this in your download success code:
+  function incrementDownloads() {
+    visitsRef.set({ downloads: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+  }
+</script>
+
 </body>
 </html>
