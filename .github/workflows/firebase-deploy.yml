@@ -1,4 +1,4 @@
-name: Firebase Deploy
+name: Deploy to Firebase Hosting
 
 on:
   push:
@@ -10,24 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Write service account key
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: echo "$FIREBASE_SERVICE_ACCOUNT" > $HOME/firebase-key.json
-
-      - name: Authenticate & Deploy to Firebase
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-key.json
+      - name: Create Service Account Key File
         run: |
-          firebase deploy --project filebae-13715 --only hosting,functions
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > service-account.json
+        shell: bash
+
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting,functions --project filebae-13715
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: service-account.json
