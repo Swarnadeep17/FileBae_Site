@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="FileBae – Fast, secure, and ad-free tools for all your file conversions. PDF, Image, Word, Excel and more." />
-  <meta name="keywords" content="file converter, pdf to image, pdf tools, word to pdf, image to pdf, excel converter, free online tools" />
+  <meta name="description" content="FileBae — Fast, ad-free file conversion tools. Convert PDF, images, Word, and Excel without clutter." />
+  <meta name="keywords" content="FileBae, convert PDF, PDF to JPG, image to PDF, Word to PDF, online converter, no ads, free tools, AI PDF" />
   <meta name="author" content="FileBae">
-  <title>FileBae — Convert Files Without Clutter</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4727/4727420.png" type="image/png">
+  <title>FileBae — Convert Files Without the Clutter</title>
   <style>
     body {
       margin: 0;
@@ -17,23 +16,23 @@
     }
     header {
       text-align: center;
-      padding: 2rem 1rem 1rem;
+      padding: 2rem 1rem 0.5rem;
     }
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 0.5rem;
+      font-size: 2.6rem;
+      margin-bottom: 0.4rem;
     }
     h2 {
-      font-weight: normal;
       font-size: 1rem;
       color: #555;
+      font-weight: normal;
     }
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1rem;
       padding: 2rem 1rem;
-      max-width: 960px;
+      max-width: 900px;
       margin: auto;
     }
     .card {
@@ -42,152 +41,139 @@
       border-radius: 12px;
       padding: 1.2rem;
       text-align: center;
-      transition: 0.3s ease;
       cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-5px);
     }
     .card img {
       width: 40px;
       height: 40px;
       margin-bottom: 0.6rem;
     }
-    .highlights {
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .highlight-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
       padding: 2rem 1rem;
-      max-width: 960px;
+      max-width: 900px;
       margin: auto;
     }
     .highlight {
-      background: #f5f5f5;
+      background: #f8f8f8;
+      border: 1px solid #ddd;
       border-radius: 12px;
       padding: 1rem;
-      border: 1px solid #ddd;
       text-align: center;
     }
+
     .highlight h3 {
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
-    }
-    .highlight p {
-      font-size: 0.9rem;
-      color: #333;
-    }
-    .stats {
-      text-align: center;
-      margin: 2rem 0;
-      font-size: 1rem;
-      color: #555;
+      margin-top: 0;
+      font-size: 1.05rem;
     }
     footer {
-      text-align: center;
+      padding: 2rem 1rem;
       font-size: 0.9rem;
-      background: #f8f8f8;
-      padding: 1rem;
-      border-top: 1px solid #ddd;
+      text-align: center;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>FileBae</h1>
-    <h2>Convert files instantly. No logins. No ads. Just tools that work.</h2>
-  </header>
 
-  <section class="tool-grid">
-    <div class="card" onclick="window.location.href='main_page/pdf/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF">
-      <div>PDF Tools</div>
-    </div>
-    <div class="card" onclick="window.location.href='main_page/image/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image">
-      <div>Image Tools</div>
-    </div>
-    <div class="card" onclick="window.location.href='main_page/word/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/281/281760.png" alt="Word">
-      <div>Word Tools</div>
-    </div>
-    <div class="card" onclick="window.location.href='main_page/excel/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Excel">
-      <div>Excel Tools</div>
-    </div>
-  </section>
+<header>
+  <h1>FileBae</h1>
+  <h2>Convert files instantly. No logins. No ads. Just tools that work.</h2>
+</header>
 
-  <section class="highlights">
-    <div class="highlight">
-      <h3>No Signups Required</h3>
-      <p>Access every tool instantly. No logins. No limits.</p>
-    </div>
-    <div class="highlight">
-      <h3>100% Ad-Free</h3>
-      <p>Zero clutter, no popups. Just clean conversion.</p>
-    </div>
-    <div class="highlight">
-      <h3>Privacy Focused</h3>
-      <p>We don’t store your files. What you upload is yours only.</p>
-    </div>
-    <div class="highlight">
-      <h3>AI-Powered Tools</h3>
-      <p>Extract text, enhance images, compress smartly — all using AI.</p>
-    </div>
-    <div class="highlight">
-      <h3>Built for Speed</h3>
-      <p>Everything is optimized for quick conversion and minimal wait.</p>
-    </div>
-    <div class="highlight">
-      <h3>Made for Everyone</h3>
-      <p>Students, professionals, and creators — this platform is for you.</p>
-    </div>
-  </section>
-
-  <div class="stats">
-    Visitors this month: <span id="visitCount">...</span> |
-    Files downloaded: <span id="downloadCount">...</span>
+<section class="tool-grid">
+  <div class="card" onclick="window.location.href='main_page/pdf/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Icon">
+    <div>PDF Tools</div>
   </div>
+  <div class="card" onclick="window.location.href='main_page/image/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337948.png" alt="Image Icon">
+    <div>Image Tools</div>
+  </div>
+  <div class="card" onclick="window.location.href='main_page/word/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337949.png" alt="Word Icon">
+    <div>Word Tools</div>
+  </div>
+  <div class="card" onclick="window.location.href='main_page/excel/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="Excel Icon">
+    <div>Excel Tools</div>
+  </div>
+</section>
 
-  <footer>
-    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
-  </footer>
+<section class="highlight-grid">
+  <div class="highlight">
+    <h3>No Signups Required</h3>
+    <p>Access every tool instantly. No logins. No limits.</p>
+  </div>
+  <div class="highlight">
+    <h3>100% Ad-Free</h3>
+    <p>Zero clutter, no popups. Just clean conversion.</p>
+  </div>
+  <div class="highlight">
+    <h3>Privacy Focused</h3>
+    <p>We don’t store your files. What you upload is yours only.</p>
+  </div>
+  <div class="highlight">
+    <h3>AI-Powered Tools</h3>
+    <p>Extract text, enhance images, compress smartly — all using AI.</p>
+  </div>
+  <div class="highlight">
+    <h3>Built for Speed</h3>
+    <p>Everything is optimized for quick conversion and minimal wait.</p>
+  </div>
+  <div class="highlight">
+    <h3>Made for Everyone</h3>
+    <p>Students, professionals, and creators — this platform is for you.</p>
+  </div>
+</section>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+<footer id="stats">Loading usage stats...</footer>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzvOQUAd_2JQ4xDHJgK9jzF_hNMqR8Uy8",
-      authDomain: "filebae-13715.firebaseapp.com",
-      projectId: "filebae-13715",
-      storageBucket: "filebae-13715.firebasestorage.app",
-      messagingSenderId: "646428216195",
-      appId: "1:646428216195:web:6be3b02c94fccc8cd444b6",
-      measurementId: "G-SS0C8YW3YE"
-    };
+<!-- Firebase Firestore visit tracking -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzvOQUAd_2JQ4xDHJgK9jzF_hNMqR8Uy8",
+    authDomain: "filebae-13715.firebaseapp.com",
+    projectId: "filebae-13715",
+    storageBucket: "filebae-13715.firebasestorage.app",
+    messagingSenderId: "646428216195",
+    appId: "1:646428216195:web:6be3b02c94fccc8cd444b6",
+    measurementId: "G-SS0C8YW3YE"
+  };
 
-    async function updateVisitorCount() {
-      const now = new Date();
-      const docId = `${now.getFullYear()}-${now.getMonth() + 1}`;
-      const ref = doc(db, "siteStats", docId);
-      const snapshot = await getDoc(ref);
-      if (!snapshot.exists()) {
-        await setDoc(ref, { visits: 1, downloads: 0 });
-        document.getElementById("visitCount").textContent = 1;
-        document.getElementById("downloadCount").textContent = 0;
-      } else {
-        await updateDoc(ref, { visits: increment(1) });
-        const data = (await getDoc(ref)).data();
-        document.getElementById("visitCount").textContent = data.visits;
-        document.getElementById("downloadCount").textContent = data.downloads;
-      }
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function trackStats() {
+    const now = new Date();
+    const monthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
+    const statsRef = doc(db, "siteStats", monthKey);
+    const docSnap = await getDoc(statsRef);
+
+    if (docSnap.exists()) {
+      await updateDoc(statsRef, { visits: increment(1) });
+    } else {
+      await setDoc(statsRef, { visits: 1, downloads: 0 });
     }
 
-    updateVisitorCount();
-  </script>
+    const updated = await getDoc(statsRef);
+    const data = updated.data();
+    document.getElementById("stats").textContent = `Visitors this month: ${data.visits} | Files downloaded: ${data.downloads}`;
+  }
+
+  trackStats().catch(() => {
+    document.getElementById("stats").textContent = "Stats unavailable.";
+  });
+</script>
+
 </body>
 </html>
