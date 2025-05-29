@@ -1,3 +1,5 @@
+# .github/workflows/firebase-deploy.yml
+
 name: Firebase Deploy
 
 on:
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -23,11 +25,14 @@ jobs:
 
       - name: Authenticate with Firebase
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${HOME}/firebase-key.json
-          firebase use --add filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase.json
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ HOME }}/firebase.json
 
-      - name: Deploy to Firebase Hosting
+      - name: Install Function Dependencies
+        working-directory: functions
+        run: npm install
+
+      - name: Deploy to Firebase Hosting & Functions
         run: |
-          firebase deploy --only hosting --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          firebase deploy --only hosting,functions --project filebae-13715 --token "$(firebase login:ci --no-localhost --json < $HOME/firebase.json | jq -r .token)"
