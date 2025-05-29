@@ -1,23 +1,16 @@
 {
   "hosting": {
     "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "/api/pdf-to-image",
-        "function": "pdfToImage"
+        "source": "/",
+        "destination": "/index.html"
       },
       {
         "source": "**",
         "destination": "/index.html"
       }
     ]
-  },
-  "functions": {
-    "source": "functions"
   }
 }
