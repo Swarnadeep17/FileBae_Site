@@ -21,17 +21,17 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate with Firebase
+      - name: Authenticate with Firebase (using service account)
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          echo "$FIREBASE_SERVICE_ACCOUNT" > ${HOME}/firebase-key.json
-          firebase login:ci --token "$(cat ${HOME}/firebase-key.json)"
-          firebase use --add filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          echo "$FIREBASE_SERVICE_ACCOUNT" > $HOME/firebase-key.json
 
-      - name: Install project dependencies (if needed)
+      - name: Install project dependencies (optional)
         run: npm install || echo "No dependencies to install"
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting + Functions
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/firebase-key.json
         run: |
-          firebase deploy --only hosting,functions --project filebae-13715 --token "$(cat ${HOME}/firebase-key.json)"
+          firebase deploy --only hosting,functions --project filebae-13715
