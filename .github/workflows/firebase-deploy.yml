@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Firebase Deploy (Hosting Only)
 
 on:
   push:
@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -21,11 +22,10 @@ jobs:
         run: npm install -g firebase-tools
 
       - name: Create Service Account Key File
-        run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > service-account.json
-        shell: bash
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}' > service-account.json
 
       - name: Deploy to Firebase Hosting
-        run: firebase deploy --only hosting,functions --project filebae-13715
+        run: |
+          firebase deploy --only hosting --project filebae-13715
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
