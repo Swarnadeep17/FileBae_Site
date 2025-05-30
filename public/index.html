@@ -8,205 +8,288 @@
   />
   <meta
     name="description"
-    content="FileBae – Your minimalist, lightning-fast file conversion hub. Convert PDFs, images, Word docs, Excel sheets and more with no ads, no sign-ups, and advanced AI-powered options."
+    content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more."
   />
   <meta
     name="keywords"
-    content="file converter, PDF tools, image converter, PDF to image, online file tools, free file conversion, AI OCR"
+    content="filebae, PDF tools, image converter, file converter online, free tools"
   />
   <meta name="author" content="FileBae" />
-  <title>FileBae — Fast, Private & Ad-Free File Conversion</title>
+  <title>FileBae — Convert Files Without the Clutter</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <style>
-    /* Reset & base */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #fafafa;
-      color: #222;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      line-height: 1.5;
-    }
-    /* Container & layout */
-    .container {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      background: #fff;
+      color: #111;
     }
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      padding: 2rem 1rem 1rem;
     }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.2rem;
     }
-    header p {
+    h2 {
+      font-weight: normal;
       font-size: 1rem;
       color: #555;
     }
-    /* Main cards */
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
+
+    .category-grid,
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1rem;
-      justify-content: center;
-      margin-bottom: 1rem;
+      padding: 2rem 1rem;
+      max-width: 960px;
+      margin: auto;
     }
+
     .card {
-      background: #fff;
-      border: 1px solid #e2e2e2;
-      border-radius: 8px;
-      width: 180px;
+      background: #000;
+      color: #fff;
+      border-radius: 12px;
       padding: 1.2rem;
       text-align: center;
+      transition: all 0.3s ease;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: box-shadow 0.3s;
     }
+
     .card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
     }
-    .card h2 {
-      font-size: 1.1rem;
-      color: #111;
+
+    .card img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.6rem;
     }
-    /* Collapsible panel */
-    .content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-out;
+
+    /* NEW: Highlight cards under tools */
+    .highlight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 1rem auto 2rem;
+      padding: 0 1rem;
     }
-    .sub-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin: 1rem 0;
-      justify-content: center;
-    }
-    .sub-card {
-      flex: 1 1 140px;
-      background: #fff;
+    .highlight {
+      background: #f9f9f9;
       border: 1px solid #e2e2e2;
-      border-radius: 6px;
-      padding: 0.8rem;
+      border-radius: 12px;
+      padding: 1.2rem;
       text-align: center;
-      text-decoration: none;
-      color: #222;
-      transition: background 0.3s;
+      transition: box-shadow 0.2s ease;
     }
-    .sub-card:hover {
-      background: #f0f0f0;
+    .highlight:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     }
-    .sub-card h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.2rem;
+    .highlight h3 {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+      color: #000;
     }
-    /* Mobile */
-    @media (max-width: 600px) {
-      .cards, .sub-cards { flex-direction: column; align-items: center; }
-      .card, .sub-card { width: 90%; }
+    .highlight p {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .article {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+      line-height: 1.7;
+    }
+
+    .article h3 {
+      margin-top: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-button {
+      text-align: center;
+      margin-top: -1rem;
+      cursor: pointer;
+      color: #0077cc;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>FileBae</h1>
-      <p>Convert files instantly. No ads. No clutter. Just great tools.</p>
-    </header>
+  <header>
+    <h1>FileBae</h1>
+    <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
+  </header>
 
-    <!-- Main tool categories -->
-    <div class="cards">
-      <div class="card main-card" data-target="pdf-panel">
-        <h2>PDF</h2>
-      </div>
-      <div class="card main-card" data-target="image-panel">
-        <h2>Image</h2>
-      </div>
-      <div class="card main-card" data-target="word-panel">
-        <h2>Word</h2>
-      </div>
-      <div class="card main-card" data-target="excel-panel">
-        <h2>Excel</h2>
-      </div>
+  <!-- file-type selection -->
+  <section id="category-select" class="category-grid">
+    <div class="card" onclick="showTools('pdf')">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
+        alt="PDF Tools"
+      />
+      <div>PDF Tools</div>
     </div>
+    <div class="card" onclick="showTools('image')">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/337/337950.png"
+        alt="Image Tools"
+      />
+      <div>Image Tools</div>
+    </div>
+  </section>
 
-    <!-- PDF tools panel -->
-    <div id="pdf-panel" class="content">
-      <div class="sub-cards">
-        <a href="/main_page/pdf/pdf_to_image/index.html" class="sub-card">
-          <h3>PDF → Image</h3>
-        </a>
-        <a href="/main_page/pdf/pdf_to_word/index.html" class="sub-card">
-          <h3>PDF → Word</h3>
-        </a>
-        <a href="/main_page/pdf/pdf_to_excel/index.html" class="sub-card">
-          <h3>PDF → Excel</h3>
-        </a>
-        <a href="/main_page/pdf/merge_pdfs/index.html" class="sub-card">
-          <h3>Merge PDFs</h3>
-        </a>
-      </div>
-    </div>
-
-    <!-- Image tools panel -->
-    <div id="image-panel" class="content">
-      <div class="sub-cards">
-        <a href="/main_page/image/image_to_pdf/index.html" class="sub-card">
-          <h3>Image → PDF</h3>
-        </a>
-        <a href="/main_page/image/image_to_word/index.html" class="sub-card">
-          <h3>Image → Word</h3>
-        </a>
-        <a href="/main_page/image/compress_image/index.html" class="sub-card">
-          <h3>Compress Image</h3>
-        </a>
-      </div>
-    </div>
-
-    <!-- Word tools panel (placeholder) -->
-    <div id="word-panel" class="content">
-      <div class="sub-cards">
-        <a href="/main_page/word/word_to_pdf/index.html" class="sub-card">
-          <h3>Word → PDF</h3>
-        </a>
-        <a href="/main_page/word/word_to_image/index.html" class="sub-card">
-          <h3>Word → Image</h3>
-        </a>
-      </div>
-    </div>
-
-    <!-- Excel tools panel (placeholder) -->
-    <div id="excel-panel" class="content">
-      <div class="sub-cards">
-        <a href="/main_page/excel/excel_to_pdf/index.html" class="sub-card">
-          <h3>Excel → PDF</h3>
-        </a>
-        <a href="/main_page/excel/excel_to_csv/index.html" class="sub-card">
-          <h3>Excel → CSV</h3>
-        </a>
-      </div>
-    </div>
+  <div class="back-button hidden" id="goBack" onclick="goBack()">
+    ← Back to File Types
   </div>
 
+  <!-- dynamically populated tool cards -->
+  <section id="pdf-tools" class="tool-grid hidden"></section>
+  <section id="image-tools" class="tool-grid hidden"></section>
+
+  <!-- NEW: highlight boxes under the tools -->
+  <section class="highlight-cards">
+    <div class="highlight">
+      <h3>Instant & Unlimited</h3>
+      <p>
+        Convert as many files as you like with no daily caps—and get your
+        results in seconds.
+      </p>
+    </div>
+    <div class="highlight">
+      <h3>Privacy-First</h3>
+      <p>
+        We don’t store or share your documents. Everything runs in-browser
+        or is discarded immediately.
+      </p>
+    </div>
+    <div class="highlight">
+      <h3>Ad-Free Experience</h3>
+      <p>
+        No pop-ups, no distractions. Just straight-up file tools that work.
+      </p>
+    </div>
+    <div class="highlight">
+      <h3>AI-Enhanced</h3>
+      <p>
+        OCR, smart compression, and AI-driven previews—all powered by free
+        open-source engines.
+      </p>
+    </div>
+  </section>
+
+  <!-- descriptive article -->
+  <section class="article">
+    <h2>Clean. Fast. File tools that respect your time.</h2>
+    <p>
+      Let’s be honest—most file converters are bloated, slow, and packed
+      with ads. FileBae strips all that away. Whether you’re merging
+      contracts, extracting images, or running OCR on scanned pages,
+      our tools are built to deliver exactly what you need, right when
+      you need it.
+    </p>
+
+    <h3>Why FileBae?</h3>
+    <ul>
+      <li>No login walls or hidden fees</li>
+      <li>Lightning-fast performance on any device</li>
+      <li>Privacy you can trust: files never leave your control</li>
+      <li>Always free—no upsells, no nags</li>
+    </ul>
+
+    <h3>What’s Next?</h3>
+    <p>
+      We’re continuously adding new formats—Word, Excel, PowerPoint—and
+      delivering advanced AI-powered helpers like document summaries and
+      auto-formatting. FileBae is your forever home for file conversions.
+    </p>
+  </section>
+
+  <footer>
+    FileBae is built for humans. No logins. No noise. Just pure,
+    efficient tools.
+  </footer>
+
   <script>
-    // Accordion behavior: expand/collapse one panel at a time
-    document.querySelectorAll('.main-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const targetId = card.dataset.target;
-        document.querySelectorAll('.content').forEach(panel => {
-          // collapse all
-          panel.style.maxHeight = null;
+    async function loadTools() {
+      try {
+        const res = await fetch('tools.json');
+        const data = await res.json();
+
+        const pdfContainer = document.getElementById('pdf-tools');
+        const imgContainer = document.getElementById('image-tools');
+
+        pdfContainer.innerHTML = '';
+        imgContainer.innerHTML = '';
+
+        data.pdf.tools.forEach(t => {
+          const c = createCard(t.icon, t.name, t.id, 'pdf');
+          pdfContainer.appendChild(c);
         });
-        if (targetId) {
-          const panel = document.getElementById(targetId);
-          // if panel was closed, open it
-          if (!panel.style.maxHeight) {
-            panel.style.maxHeight = panel.scrollHeight + 'px';
-          }
-        }
-      });
-    });
+        data.image.tools.forEach(t => {
+          const c = createCard(t.icon, t.name, t.id, 'image');
+          imgContainer.appendChild(c);
+        });
+      } catch (e) {
+        console.error('Failed to load tools.json', e);
+      }
+    }
+
+    function createCard(icon, label, id, type) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.onclick = () =>
+        (window.location.href = `main_page/${type}/${id}/index.html`);
+
+      const img = document.createElement('img');
+      img.src = icon;
+      img.alt = label;
+
+      const text = document.createElement('div');
+      text.textContent = label;
+
+      div.appendChild(img);
+      div.appendChild(text);
+      return div;
+    }
+
+    function showTools(type) {
+      document.getElementById('category-select').classList.add('hidden');
+      document.getElementById('goBack').classList.remove('hidden');
+      document.getElementById('pdf-tools').classList.add('hidden');
+      document.getElementById('image-tools').classList.add('hidden');
+      if (type === 'pdf') {
+        document.getElementById('pdf-tools').classList.remove('hidden');
+      } else {
+        document.getElementById('image-tools').classList.remove('hidden');
+      }
+    }
+
+    function goBack() {
+      document.getElementById('category-select').classList.remove('hidden');
+      document.getElementById('goBack').classList.add('hidden');
+      document.getElementById('pdf-tools').classList.add('hidden');
+      document.getElementById('image-tools').classList.add('hidden');
+    }
+
+    // initialize
+    loadTools();
   </script>
 </body>
 </html>
