@@ -2,19 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-  <meta
-    name="description"
-    content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more."
-  />
-  <meta
-    name="keywords"
-    content="filebae, PDF tools, image converter, file converter online, free tools"
-  />
-  <meta name="author" content="FileBae" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
+  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools">
+  <meta name="author" content="FileBae">
   <title>FileBae — Convert Files Without the Clutter</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <style>
@@ -24,22 +15,11 @@
       background: #fff;
       color: #111;
     }
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-    }
-    h1 {
-      font-size: 2.4rem;
-      margin-bottom: 0.2rem;
-    }
-    h2 {
-      font-weight: normal;
-      font-size: 1rem;
-      color: #555;
-    }
+    header { text-align: center; padding: 2rem 1rem 1rem; }
+    h1 { font-size: 2.4rem; margin-bottom: 0.2rem; }
+    h2 { font-weight: normal; font-size: 1rem; color: #555; }
 
-    .category-grid,
-    .tool-grid {
+    .category-grid, .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1rem;
@@ -57,21 +37,12 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
+    .card:hover { transform: translateY(-5px); }
+    .card img { width: 40px; height: 40px; margin-bottom: 0.6rem; }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0.6rem;
-    }
-
-    /* NEW: Highlight cards under tools */
     .highlight-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
       gap: 1.5rem;
       max-width: 960px;
       margin: 1rem auto 2rem;
@@ -85,18 +56,9 @@
       text-align: center;
       transition: box-shadow 0.2s ease;
     }
-    .highlight:hover {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    }
-    .highlight h3 {
-      margin: 0.4rem 0;
-      font-size: 1.1rem;
-      color: #000;
-    }
-    .highlight p {
-      font-size: 0.9rem;
-      color: #333;
-    }
+    .highlight:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.08); }
+    .highlight h3 { margin: 0.4rem 0; font-size: 1.1rem; color: #000; }
+    .highlight p { font-size: 0.9rem; color: #333; }
 
     .article {
       max-width: 900px;
@@ -104,10 +66,7 @@
       padding: 2rem 1rem;
       line-height: 1.7;
     }
-
-    .article h3 {
-      margin-top: 2rem;
-    }
+    .article h3 { margin-top: 2rem; }
 
     footer {
       text-align: center;
@@ -117,10 +76,7 @@
       border-top: 1px solid #ddd;
     }
 
-    .hidden {
-      display: none;
-    }
-
+    .hidden { display: none; }
     .back-button {
       text-align: center;
       margin-top: -1rem;
@@ -137,136 +93,99 @@
     <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
   </header>
 
-  <!-- file-type selection -->
+  <!-- 1) Choose file type -->
   <section id="category-select" class="category-grid">
     <div class="card" onclick="showTools('pdf')">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
-        alt="PDF Tools"
-      />
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
       <div>PDF Tools</div>
     </div>
     <div class="card" onclick="showTools('image')">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/337/337950.png"
-        alt="Image Tools"
-      />
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Tools">
       <div>Image Tools</div>
     </div>
   </section>
 
-  <div class="back-button hidden" id="goBack" onclick="goBack()">
+  <div id="goBack" class="back-button hidden" onclick="goBack()">
     ← Back to File Types
   </div>
 
-  <!-- dynamically populated tool cards -->
+  <!-- 2) Sub-tool grids (populated from tools.json) -->
   <section id="pdf-tools" class="tool-grid hidden"></section>
   <section id="image-tools" class="tool-grid hidden"></section>
 
-  <!-- NEW: highlight boxes under the tools -->
+  <!-- 3) Highlight/USP cards -->
   <section class="highlight-cards">
     <div class="highlight">
       <h3>Instant & Unlimited</h3>
-      <p>
-        Convert as many files as you like with no daily caps—and get your
-        results in seconds.
-      </p>
+      <p>Convert as many files as you like—no daily caps and results in seconds.</p>
     </div>
     <div class="highlight">
       <h3>Privacy-First</h3>
-      <p>
-        We don’t store or share your documents. Everything runs in-browser
-        or is discarded immediately.
-      </p>
+      <p>We never store or share your documents. All processing is ephemeral.</p>
     </div>
     <div class="highlight">
       <h3>Ad-Free Experience</h3>
-      <p>
-        No pop-ups, no distractions. Just straight-up file tools that work.
-      </p>
+      <p>No pop-ups or distractions—just clean, reliable conversions.</p>
     </div>
     <div class="highlight">
       <h3>AI-Enhanced</h3>
-      <p>
-        OCR, smart compression, and AI-driven previews—all powered by free
-        open-source engines.
-      </p>
+      <p>OCR, smart compression, and AI-driven previews powered by open-source.</p>
     </div>
   </section>
 
-  <!-- descriptive article -->
+  <!-- 4) Descriptive article -->
   <section class="article">
     <h2>Clean. Fast. File tools that respect your time.</h2>
     <p>
-      Let’s be honest—most file converters are bloated, slow, and packed
-      with ads. FileBae strips all that away. Whether you’re merging
-      contracts, extracting images, or running OCR on scanned pages,
-      our tools are built to deliver exactly what you need, right when
-      you need it.
+      Let’s be honest—most file converters are bloated and slow. FileBae strips
+      away the extras so you can merge, convert, or compress your files in
+      seconds—no sign-ups, no ads.
     </p>
 
     <h3>Why FileBae?</h3>
     <ul>
       <li>No login walls or hidden fees</li>
       <li>Lightning-fast performance on any device</li>
-      <li>Privacy you can trust: files never leave your control</li>
+      <li>Your privacy is sacred: files never leave your control</li>
       <li>Always free—no upsells, no nags</li>
     </ul>
 
     <h3>What’s Next?</h3>
     <p>
-      We’re continuously adding new formats—Word, Excel, PowerPoint—and
-      delivering advanced AI-powered helpers like document summaries and
-      auto-formatting. FileBae is your forever home for file conversions.
+      We’re rolling out new formats—Word, Excel, PowerPoint—and AI helpers like
+      document summarization and auto-formatting. FileBae is evolving with you.
     </p>
   </section>
 
   <footer>
-    FileBae is built for humans. No logins. No noise. Just pure,
-    efficient tools.
+    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
   </footer>
 
   <script>
+    // load tools.json and populate
     async function loadTools() {
-      try {
-        const res = await fetch('tools.json');
-        const data = await res.json();
-
-        const pdfContainer = document.getElementById('pdf-tools');
-        const imgContainer = document.getElementById('image-tools');
-
-        pdfContainer.innerHTML = '';
-        imgContainer.innerHTML = '';
-
-        data.pdf.tools.forEach(t => {
-          const c = createCard(t.icon, t.name, t.id, 'pdf');
-          pdfContainer.appendChild(c);
-        });
-        data.image.tools.forEach(t => {
-          const c = createCard(t.icon, t.name, t.id, 'image');
-          imgContainer.appendChild(c);
-        });
-      } catch (e) {
-        console.error('Failed to load tools.json', e);
-      }
+      const resp = await fetch('tools.json');
+      const data = await resp.json();
+      const pdfC = document.getElementById('pdf-tools');
+      const imgC = document.getElementById('image-tools');
+      pdfC.innerHTML = '';
+      imgC.innerHTML = '';
+      data.pdf.tools.forEach(t => pdfC.appendChild(makeCard(t, 'pdf')));
+      data.image.tools.forEach(t => imgC.appendChild(makeCard(t, 'image')));
     }
 
-    function createCard(icon, label, id, type) {
-      const div = document.createElement('div');
-      div.className = 'card';
-      div.onclick = () =>
-        (window.location.href = `main_page/${type}/${id}/index.html`);
-
+    function makeCard(tool, type) {
+      const d = document.createElement('div');
+      d.className = 'card';
+      d.onclick = () => 
+        window.location.href = `main_page/${type}/${tool.id}/index.html`;
       const img = document.createElement('img');
-      img.src = icon;
-      img.alt = label;
-
-      const text = document.createElement('div');
-      text.textContent = label;
-
-      div.appendChild(img);
-      div.appendChild(text);
-      return div;
+      img.src = tool.icon;
+      img.alt = tool.name;
+      const txt = document.createElement('div');
+      txt.textContent = tool.name;
+      d.append(img, txt);
+      return d;
     }
 
     function showTools(type) {
@@ -274,11 +193,7 @@
       document.getElementById('goBack').classList.remove('hidden');
       document.getElementById('pdf-tools').classList.add('hidden');
       document.getElementById('image-tools').classList.add('hidden');
-      if (type === 'pdf') {
-        document.getElementById('pdf-tools').classList.remove('hidden');
-      } else {
-        document.getElementById('image-tools').classList.remove('hidden');
-      }
+      document.getElementById(type + '-tools').classList.remove('hidden');
     }
 
     function goBack() {
@@ -288,8 +203,7 @@
       document.getElementById('image-tools').classList.add('hidden');
     }
 
-    // initialize
-    loadTools();
+    document.addEventListener('DOMContentLoaded', loadTools);
   </script>
 </body>
 </html>
