@@ -2,195 +2,211 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="FileBae is a blazing-fast, minimalist file tool hub. Convert PDFs, images, docs & more—no ads, no clutter, no logins. Pure tools that just work." />
-  <meta name="keywords" content="PDF converter, file tools online, free pdf to image, convert images to pdf, FileBae" />
-  <meta name="author" content="FileBae">
-  <title>FileBae — Convert PDFs, Images & Files Online | Free & No Login</title>
-  <link rel="icon" href="favicon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <meta
+    name="description"
+    content="FileBae – Your minimalist, lightning-fast file conversion hub. Convert PDFs, images, Word docs, Excel sheets and more with no ads, no sign-ups, and advanced AI-powered options."
+  />
+  <meta
+    name="keywords"
+    content="file converter, PDF tools, image converter, PDF to image, online file tools, free file conversion, AI OCR"
+  />
+  <meta name="author" content="FileBae" />
+  <title>FileBae — Fast, Private & Ad-Free File Conversion</title>
   <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
+      background: #fafafa;
+      color: #222;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #ffffff, #f3f3f3);
-      color: #111;
-      overflow-x: hidden;
+      line-height: 1.5;
     }
-
-    .bg-animation {
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, #d6d6d6 20%, transparent 60%);
-      animation: moveBg 20s infinite linear;
-      z-index: -1;
-      opacity: 0.1;
+    /* Container & layout */
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-
-    @keyframes moveBg {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     header {
       text-align: center;
-      padding: 2rem 1rem 1rem;
+      margin-bottom: 2rem;
     }
-
-    h1 {
-      font-size: 2.4rem;
+    header h1 {
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
-
-    h2 {
+    header p {
       font-size: 1rem;
       color: #555;
     }
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem 1rem;
-      max-width: 960px;
-      margin: auto;
+    /* Main cards */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1rem;
     }
-
     .card {
-      background: #000;
-      color: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: 0.3s ease;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card img {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 0.8rem;
-    }
-
-    .highlight-section {
-      max-width: 960px;
-      margin: 3rem auto;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .highlight {
       background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+      border: 1px solid #e2e2e2;
+      border-radius: 8px;
+      width: 180px;
       padding: 1.2rem;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s;
     }
-
-    .highlight h3 {
-      margin: 0.6rem 0;
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .card h2 {
       font-size: 1.1rem;
+      color: #111;
     }
-
-    .highlight p {
-      font-size: 0.95rem;
-      color: #333;
+    /* Collapsible panel */
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
     }
-
-    .article {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 1rem 2rem;
-      line-height: 1.7;
+    .sub-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0;
+      justify-content: center;
     }
-
-    .article h3 {
-      margin-top: 2rem;
-      font-size: 1.3rem;
-    }
-
-    footer {
+    .sub-card {
+      flex: 1 1 140px;
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      border-radius: 6px;
+      padding: 0.8rem;
       text-align: center;
-      font-size: 0.9rem;
-      padding: 1rem;
-      background: #f7f7f7;
-      border-top: 1px solid #ddd;
+      text-decoration: none;
+      color: #222;
+      transition: background 0.3s;
+    }
+    .sub-card:hover {
+      background: #f0f0f0;
+    }
+    .sub-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    /* Mobile */
+    @media (max-width: 600px) {
+      .cards, .sub-cards { flex-direction: column; align-items: center; }
+      .card, .sub-card { width: 90%; }
     }
   </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
 
-  <header>
-    <h1>FileBae</h1>
-    <h2>Minimalist file tools that just work — free, fast and no nonsense.</h2>
-  </header>
+  <div class="container">
+    <header>
+      <h1>FileBae</h1>
+      <p>Convert files instantly. No ads. No clutter. Just great tools.</p>
+    </header>
 
-  <section class="tool-grid">
-    <div class="card" onclick="window.location.href='main_page/pdf/pdf_to_image/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Icon">
-      <div>PDF Tools</div>
+    <!-- Main tool categories -->
+    <div class="cards">
+      <div class="card main-card" data-target="pdf-panel">
+        <h2>PDF</h2>
+      </div>
+      <div class="card main-card" data-target="image-panel">
+        <h2>Image</h2>
+      </div>
+      <div class="card main-card" data-target="word-panel">
+        <h2>Word</h2>
+      </div>
+      <div class="card main-card" data-target="excel-panel">
+        <h2>Excel</h2>
+      </div>
     </div>
-    <div class="card" onclick="window.location.href='main_page/image/image_to_pdf/index.html'">
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Icon">
-      <div>Image Tools</div>
+
+    <!-- PDF tools panel -->
+    <div id="pdf-panel" class="content">
+      <div class="sub-cards">
+        <a href="/main_page/pdf/pdf_to_image/index.html" class="sub-card">
+          <h3>PDF → Image</h3>
+        </a>
+        <a href="/main_page/pdf/pdf_to_word/index.html" class="sub-card">
+          <h3>PDF → Word</h3>
+        </a>
+        <a href="/main_page/pdf/pdf_to_excel/index.html" class="sub-card">
+          <h3>PDF → Excel</h3>
+        </a>
+        <a href="/main_page/pdf/merge_pdfs/index.html" class="sub-card">
+          <h3>Merge PDFs</h3>
+        </a>
+      </div>
     </div>
-    <!-- Add more tools as needed -->
-  </section>
 
-  <section class="highlight-section">
-    <div class="highlight animate__animated animate__fadeInUp">
-      <h3>No Logins Required</h3>
-      <p>Convert files without signing up. Instant access to every tool.</p>
+    <!-- Image tools panel -->
+    <div id="image-panel" class="content">
+      <div class="sub-cards">
+        <a href="/main_page/image/image_to_pdf/index.html" class="sub-card">
+          <h3>Image → PDF</h3>
+        </a>
+        <a href="/main_page/image/image_to_word/index.html" class="sub-card">
+          <h3>Image → Word</h3>
+        </a>
+        <a href="/main_page/image/compress_image/index.html" class="sub-card">
+          <h3>Compress Image</h3>
+        </a>
+      </div>
     </div>
-    <div class="highlight animate__animated animate__fadeInUp animate__delay-1s">
-      <h3>AI-Powered Features</h3>
-      <p>Use smart OCR, compression, summaries and more — built-in intelligence.</p>
+
+    <!-- Word tools panel (placeholder) -->
+    <div id="word-panel" class="content">
+      <div class="sub-cards">
+        <a href="/main_page/word/word_to_pdf/index.html" class="sub-card">
+          <h3>Word → PDF</h3>
+        </a>
+        <a href="/main_page/word/word_to_image/index.html" class="sub-card">
+          <h3>Word → Image</h3>
+        </a>
+      </div>
     </div>
-    <div class="highlight animate__animated animate__fadeInUp animate__delay-2s">
-      <h3>Ad-Free Forever</h3>
-      <p>No distractions. No popups. Just clean, focused tools.</p>
+
+    <!-- Excel tools panel (placeholder) -->
+    <div id="excel-panel" class="content">
+      <div class="sub-cards">
+        <a href="/main_page/excel/excel_to_pdf/index.html" class="sub-card">
+          <h3>Excel → PDF</h3>
+        </a>
+        <a href="/main_page/excel/excel_to_csv/index.html" class="sub-card">
+          <h3>Excel → CSV</h3>
+        </a>
+      </div>
     </div>
-    <div class="highlight animate__animated animate__fadeInUp animate__delay-3s">
-      <h3>Mobile-First Design</h3>
-      <p>Perfectly optimized for phones, tablets, and desktops.</p>
-    </div>
-  </section>
+  </div>
 
-  <section class="article">
-    <h3>What Is FileBae?</h3>
-    <p>
-      FileBae is your fast, privacy-first toolkit to manage files online. Whether you're converting PDFs to images, compiling scanned documents, or extracting text using OCR — FileBae simplifies everything. No signups, no limits, no wasted time.
-    </p>
-
-    <h3>Why Choose FileBae Over Others?</h3>
-    <p>
-      Other websites overwhelm you with ads, popups, and login gates. FileBae breaks that mold with a clean, performance-driven approach to file processing. You get instant results without compromising privacy or speed.
-    </p>
-
-    <h3>Smart Tools. No Gimmicks.</h3>
-    <p>
-      Every tool on FileBae is crafted with simplicity and functionality in mind. Whether it’s converting image-heavy PDFs or using AI to extract meaningful content, we make sure you get exactly what you came for — no more, no less.
-    </p>
-
-    <h3>What's Coming Next?</h3>
-    <p>
-      We’re continuously building — expect tools for Word, Excel, and even audio/video in the future. Plus: more AI-powered features that understand your documents better and help you do more with less effort.
-    </p>
-  </section>
-
-  <footer>
-    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
-  </footer>
+  <script>
+    // Accordion behavior: expand/collapse one panel at a time
+    document.querySelectorAll('.main-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const targetId = card.dataset.target;
+        document.querySelectorAll('.content').forEach(panel => {
+          // collapse all
+          panel.style.maxHeight = null;
+        });
+        if (targetId) {
+          const panel = document.getElementById(targetId);
+          // if panel was closed, open it
+          if (!panel.style.maxHeight) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
