@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FileBae — Online PDF, Image, Word & Excel Tools</title>
-  <meta name="description" content="FileBae is your ultimate free toolset to convert, compress, and manage PDF, Word, Excel, and image files online. No signups, no ads — just clean conversion." />
-  <meta name="keywords" content="PDF tools, Word to PDF, PDF to JPG, Excel to PDF, file converter, image converter, compress PDF, AI OCR, FileBae tools" />
-  <meta name="author" content="FileBae" />
-  <link rel="icon" href="https://img.icons8.com/color/48/pdf.png" />
-
+  <meta name="description" content="FileBae offers ultra-fast, private, and AI-enhanced file conversion tools including PDF to Image, Image to PDF, and more. No ads. No clutter." />
+  <meta name="keywords" content="FileBae, PDF converter, Image tools, file converter online, free PDF tools, privacy-first conversion, AI PDF converter" />
+  <meta name="author" content="FileBae">
+  <meta name="robots" content="index, follow" />
+  <title>FileBae — Free PDF & Image Conversion Tools</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" type="image/png"/>
   <style>
     body {
       margin: 0;
@@ -16,233 +16,184 @@
       background: #fff;
       color: #111;
     }
-
     header {
       text-align: center;
-      padding: 2rem 1rem 0.5rem;
+      padding: 2rem 1rem 1rem;
     }
-
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 0.3rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
     }
-
     h2 {
-      font-size: 1.1rem;
       font-weight: normal;
-      color: #666;
+      font-size: 1rem;
+      color: #555;
     }
-
-    .tools, .highlights, .about, footer {
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 2rem 1rem;
       max-width: 960px;
       margin: auto;
-      padding: 1.5rem 1rem;
     }
-
-    .tool-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-      margin-top: 2rem;
-    }
-
-    .tool-card {
-      background: #000;
-      color: #fff;
+    .card {
+      background: #f7f7f7;
+      border-radius: 12px;
       padding: 1.2rem;
-      border-radius: 14px;
-      width: 140px;
       text-align: center;
-      cursor: pointer;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
-
-    .tool-card:hover {
-      background: #222;
-      transform: scale(1.05);
+    .card:hover {
+      transform: translateY(-5px);
+      background: #f0f0f0;
     }
-
-    .tool-card img {
+    .card img {
       width: 48px;
       height: 48px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
-
-    .tool-card span {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .highlight-grid {
+    .highlight-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 960px;
     }
-
     .highlight {
-      background: #f9f9f9;
-      padding: 1.2rem;
+      background: #fafafa;
+      border: 1px solid #eee;
       border-radius: 12px;
-      border: 1px solid #eaeaea;
+      padding: 1.2rem;
       text-align: center;
     }
-
-    .highlight h3 {
-      margin: 0.4rem 0;
-      font-size: 1.05rem;
-    }
-
-    .highlight p {
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .about h3 {
-      font-size: 1.3rem;
-      margin-top: 2rem;
-    }
-
-    .about p {
-      font-size: 0.96rem;
-      line-height: 1.6;
-      color: #333;
-    }
-
     footer {
       text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      background: #f5f5f5;
       padding: 1rem;
+      font-size: 0.9rem;
+      background: #f5f5f5;
       border-top: 1px solid #ddd;
     }
-
-    .stats {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.92rem;
-      color: #444;
+    .article {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+      line-height: 1.7;
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <h1>FileBae</h1>
-    <h2>Convert files instantly. No logins. No ads. Just tools that work.</h2>
-  </header>
 
-  <section class="tools">
-    <div class="tool-grid">
-      <div class="tool-card" onclick="location.href='main_page/pdf/index.html'">
-        <img src="https://img.icons8.com/color/96/pdf.png" alt="PDF Icon" />
-        <span>PDF Tools</span>
-      </div>
-      <div class="tool-card" onclick="location.href='main_page/image/index.html'">
-        <img src="https://img.icons8.com/color/96/image.png" alt="Image Icon" />
-        <span>Image Tools</span>
-      </div>
-      <div class="tool-card" onclick="location.href='main_page/word/index.html'">
-        <img src="https://img.icons8.com/color/96/word.png" alt="Word Icon" />
-        <span>Word Tools</span>
-      </div>
-      <div class="tool-card" onclick="location.href='main_page/excel/index.html'">
-        <img src="https://img.icons8.com/color/96/ms-excel.png" alt="Excel Icon" />
-        <span>Excel Tools</span>
-      </div>
-    </div>
-  </section>
+<header>
+  <h1>FileBae</h1>
+  <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
+</header>
 
-  <section class="highlights">
-    <div class="highlight-grid">
-      <div class="highlight">
-        <h3>No Signups Required</h3>
-        <p>Access every tool instantly. No logins. No limits.</p>
-      </div>
-      <div class="highlight">
-        <h3>100% Ad-Free</h3>
-        <p>Zero clutter, no popups. Just clean conversion.</p>
-      </div>
-      <div class="highlight">
-        <h3>Privacy Focused</h3>
-        <p>We don’t store your files. What you upload is yours only.</p>
-      </div>
-      <div class="highlight">
-        <h3>AI-Powered Tools</h3>
-        <p>Extract text, enhance images, compress smartly — all using AI.</p>
-      </div>
-      <div class="highlight">
-        <h3>Built for Speed</h3>
-        <p>Everything is optimized for quick conversion and minimal wait.</p>
-      </div>
-      <div class="highlight">
-        <h3>Made for Everyone</h3>
-        <p>Students, professionals, and creators — this platform is for you.</p>
-      </div>
-    </div>
-  </section>
+<section class="tool-grid">
+  <div class="card" onclick="location.href='main_page/pdf/pdf_to_image/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF">
+    <div>PDF to Image</div>
+  </div>
+  <div class="card" onclick="location.href='main_page/image/image_to_pdf/index.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image">
+    <div>Image to PDF</div>
+  </div>
+</section>
 
-  <section class="about">
-    <h3>What is FileBae?</h3>
-    <p>FileBae is a minimalist file conversion platform that helps you perform everyday tasks like turning PDFs into images, converting spreadsheets to PDFs, or extracting content from photos — all in one place. Designed to be fast and distraction-free, it doesn't ask for your email or throw ads in your face. Just upload and convert.</p>
+<section class="highlight-cards">
+  <div class="highlight">
+    <h3>One-Click Tools</h3>
+    <p>No logins or installations required. Everything works from your browser.</p>
+  </div>
+  <div class="highlight">
+    <h3>Zero Ads</h3>
+    <p>Enjoy a distraction-free, ad-free interface forever.</p>
+  </div>
+  <div class="highlight">
+    <h3>AI-Powered OCR</h3>
+    <p>Extract text from scanned PDFs and images using open-source AI.</p>
+  </div>
+  <div class="highlight">
+    <h3>Privacy-First</h3>
+    <p>All file processing is instant and temporary. Your files are never stored.</p>
+  </div>
+</section>
 
-    <h3>Why FileBae Stands Out</h3>
-    <p>While many platforms gatekeep basic tools or bury them behind registration walls, FileBae does the opposite. With no ads, logins, or paywalls, our focus is simplicity. Tools are powered by lightweight cloud services and open-source intelligence, ensuring fast results across devices.</p>
+<section class="article">
+  <h3>FileBae: Modern File Conversion for Real-World Needs</h3>
+  <p>
+    FileBae is your no-nonsense solution for converting and managing files online. Whether you're dealing with PDFs, images, or documents, we’ve built a toolset that’s fast, functional, and friendly.
+  </p>
+  <p>
+    Our interface is designed for real users: freelancers, students, professionals, and anyone who’s tired of ads and complicated tools. FileBae lets you convert files, extract text, and optimize documents—all in one clean place.
+  </p>
+  <p>
+    Backed by privacy-first architecture, none of your files are saved. We use advanced open libraries like <strong>pdf2pic</strong> and <strong>tesseract.js</strong> to deliver AI-enhanced output without the bloat.
+  </p>
+  <p>
+    Try it now. No login. No limits. Just speed and accuracy you can count on.
+  </p>
 
-    <h3>Use Cases You Didn’t Know You Needed</h3>
-    <p>Use FileBae to submit assignment images as PDFs, extract legal documents into text using OCR, compress resumes for job applications, or batch convert receipts into spreadsheets. We build tools for real-world usage.</p>
+  <p style="margin-top: 2rem; font-weight: bold;">
+    Visitors this month: <span id="visitCount">Loading...</span> |
+    Files downloaded: <span id="downloadCount">Loading...</span>
+  </p>
+</section>
 
-    <h3>Optimized for Every Device</h3>
-    <p>Whether you're on mobile or desktop, FileBae adapts seamlessly. There's no need to install apps or software — everything runs straight in the browser, secured and encrypted. You retain control of your files at all times.</p>
-  </section>
+<footer>
+  FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
+</footer>
 
-  <div class="stats" id="stats">Loading usage stats...</div>
+<!-- Firestore stats -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    increment
+  } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-  <footer>
-    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
-  </footer>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzvOQUAd_2JQ4xDHJgK9jzF_hNMqR8Uy8",
+    authDomain: "filebae-13715.firebaseapp.com",
+    projectId: "filebae-13715",
+    storageBucket: "filebae-13715.firebasestorage.app",
+    messagingSenderId: "646428216195",
+    appId: "1:646428216195:web:6be3b02c94fccc8cd444b6",
+    measurementId: "G-SS0C8YW3YE"
+  };
 
-  <!-- Firebase Analytics + Stats -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzvOQUAd_2JQ4xDHJgK9jzF_hNMqR8Uy8",
-      authDomain: "filebae-13715.firebaseapp.com",
-      projectId: "filebae-13715",
-      storageBucket: "filebae-13715.firebasestorage.app",
-      messagingSenderId: "646428216195",
-      appId: "1:646428216195:web:6be3b02c94fccc8cd444b6",
-      measurementId: "G-SS0C8YW3YE"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
+  async function bumpAndFetch(field) {
     const now = new Date();
-    const monthKey = `${now.getFullYear()}-${now.getMonth() + 1}`;
-    const statRef = doc(db, "siteStats", `document ${monthKey}`);
+    const monthId = `${now.getFullYear()}-${now.getMonth() + 1}`;
+    const ref = doc(db, "siteStats", monthId);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      await setDoc(ref, { visits: 0, downloads: 0 });
+    }
+    await updateDoc(ref, { [field]: increment(1) });
+    const updated = await getDoc(ref);
+    return updated.data();
+  }
 
+  window.addEventListener("DOMContentLoaded", async () => {
     try {
-      const snap = await getDoc(statRef);
-      if (snap.exists()) {
-        const data = snap.data();
-        document.getElementById("stats").innerText =
-          `Visitors this month: ${data.visits || 0} | Files downloaded: ${data.downloads || 0}`;
-        await updateDoc(statRef, { visits: increment(1) });
-      } else {
-        await setDoc(statRef, { visits: 1, downloads: 0 });
-        document.getElementById("stats").innerText =
-          `Visitors this month: 1 | Files downloaded: 0`;
-      }
+      const { visits, downloads } = await bumpAndFetch("visits");
+      document.getElementById("visitCount").textContent = visits;
+      document.getElementById("downloadCount").textContent = downloads;
     } catch (e) {
       console.error("Stats error:", e);
-      document.getElementById("stats").innerText = "Stats unavailable.";
     }
-  </script>
+  });
+</script>
+
 </body>
 </html>
