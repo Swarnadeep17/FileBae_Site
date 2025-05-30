@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
-  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools, convert pdf, convert image, online file tools, document converter">
+  <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more. No ads, no logins. Just tools that work.">
+  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free file tools, pdf to image, pdf converter, online pdf tools, image compressor">
   <meta name="author" content="FileBae">
   <title>FileBae — Convert Files Without the Clutter</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
@@ -17,9 +17,19 @@
       background: #fff;
       color: #111;
     }
-    header { text-align: center; padding: 2rem 1rem 1rem; }
-    h1 { font-size: 2.4rem; margin-bottom: 0.2rem; }
-    h2 { font-weight: normal; font-size: 1rem; color: #555; }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.2rem;
+    }
+    h2 {
+      font-weight: normal;
+      font-size: 1rem;
+      color: #555;
+    }
 
     .category-grid, .tool-grid {
       display: grid;
@@ -39,8 +49,14 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
-    .card:hover { transform: translateY(-5px); }
-    .card img { width: 40px; height: 40px; margin-bottom: 0.6rem; }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.6rem;
+    }
 
     .highlight-cards {
       display: grid;
@@ -58,9 +74,18 @@
       text-align: center;
       transition: box-shadow 0.2s ease;
     }
-    .highlight:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.08); }
-    .highlight h3 { margin: 0.4rem 0; font-size: 1.1rem; color: #000; }
-    .highlight p { font-size: 0.9rem; color: #333; }
+    .highlight:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+    .highlight h3 {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+      color: #000;
+    }
+    .highlight p {
+      font-size: 0.9rem;
+      color: #333;
+    }
 
     .article {
       max-width: 900px;
@@ -68,7 +93,9 @@
       padding: 2rem 1rem;
       line-height: 1.7;
     }
-    .article h3 { margin-top: 2rem; }
+    .article h3 {
+      margin-top: 2rem;
+    }
 
     footer {
       text-align: center;
@@ -78,7 +105,9 @@
       border-top: 1px solid #ddd;
     }
 
-    .hidden { display: none; }
+    .hidden {
+      display: none;
+    }
     .back-button {
       text-align: center;
       margin-top: -1rem;
@@ -95,27 +124,27 @@
     <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
   </header>
 
-  <!-- 1) Choose file type -->
-  <section id="category-select" class="category-grid animate__animated animate__fadeInUp">
-    <div class="card" onclick="showTools('pdf')">
+  <!-- File type categories -->
+  <section id="category-select" class="category-grid animate__animated animate__fadeIn">
+    <div class="card animate__animated animate__fadeInUp" onclick="showTools('pdf')">
       <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
       <div>PDF Tools</div>
     </div>
-    <div class="card" onclick="showTools('image')">
+    <div class="card animate__animated animate__fadeInUp" onclick="showTools('image')">
       <img src="https://cdn-icons-png.flaticon.com/512/337/337950.png" alt="Image Tools">
       <div>Image Tools</div>
     </div>
   </section>
 
-  <div id="goBack" class="back-button hidden animate__animated animate__fadeIn">
+  <div id="goBack" class="back-button hidden" onclick="goBack()">
     ← Back to File Types
   </div>
 
-  <!-- 2) Sub-tool grids -->
+  <!-- Sub-tools grid (dynamically populated) -->
   <section id="pdf-tools" class="tool-grid hidden animate__animated animate__fadeInUp"></section>
   <section id="image-tools" class="tool-grid hidden animate__animated animate__fadeInUp"></section>
 
-  <!-- 3) Highlight/USP cards -->
+  <!-- Highlight USPs -->
   <section class="highlight-cards animate__animated animate__fadeInUp">
     <div class="highlight">
       <h3>Instant & Unlimited</h3>
@@ -135,8 +164,8 @@
     </div>
   </section>
 
-  <!-- 4) Descriptive article -->
-  <section class="article animate__animated animate__fadeIn">
+  <!-- Descriptive content -->
+  <section class="article">
     <h2>Clean. Fast. File tools that respect your time.</h2>
     <p>
       Let’s be honest—most file converters are bloated and slow. FileBae strips
@@ -159,31 +188,44 @@
     </p>
   </section>
 
-  <footer class="animate__animated animate__fadeInUp">
+  <footer>
     FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
   </footer>
 
+  <!-- JS Logic -->
   <script>
     async function loadTools() {
-      const resp = await fetch('tools.json');
+      let resp;
+      try {
+        resp = await fetch('/tools.json');
+        if (!resp.ok) throw new Error('tools.json not found');
+      } catch (e) {
+        return console.error('tools.json fetch failed:', e);
+      }
+
       const data = await resp.json();
       const pdfC = document.getElementById('pdf-tools');
       const imgC = document.getElementById('image-tools');
       pdfC.innerHTML = '';
       imgC.innerHTML = '';
-      data.pdf.tools.forEach(t => pdfC.appendChild(makeCard(t, 'pdf')));
-      data.image.tools.forEach(t => imgC.appendChild(makeCard(t, 'image')));
+
+      (data.pdf?.tools || []).forEach(t => pdfC.appendChild(makeCard(t, 'pdf')));
+      (data.image?.tools || []).forEach(t => imgC.appendChild(makeCard(t, 'image')));
     }
 
     function makeCard(tool, type) {
       const d = document.createElement('div');
       d.className = 'card animate__animated animate__fadeInUp';
-      d.onclick = () => window.location.href = `main_page/${type}/${tool.id}/index.html`;
+      d.onclick = () =>
+        window.location.href = `/main_page/${type}/${tool.id}/index.html`;
+
       const img = document.createElement('img');
       img.src = tool.icon;
       img.alt = tool.name;
+
       const txt = document.createElement('div');
       txt.textContent = tool.name;
+
       d.append(img, txt);
       return d;
     }
