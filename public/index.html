@@ -115,6 +115,16 @@
       color: #0077cc;
       font-size: 0.9rem;
     }
+    
+    /* New responsive adjustment */
+    @media (max-width: 480px) {
+      .category-grid, .tool-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -181,9 +191,15 @@
       <li>Always free—no upsells, no nags</li>
     </ul>
 
-    <h3>What’s Next?</h3>
+    <h3>What's Available Now?</h3>
+    <ul>
+      <li>PDF to Image conversion</li>
+      <li>More tools coming soon...</li>
+    </ul>
+
+    <h3>What's Next?</h3>
     <p>
-      We’re rolling out new formats—Word, Excel, PowerPoint—and AI helpers like
+      We're rolling out new formats—Word, Excel, PowerPoint—and AI helpers like
       document summarization and auto-formatting. FileBae is evolving with you.
     </p>
   </section>
@@ -197,7 +213,8 @@
     async function loadTools() {
       let resp;
       try {
-        resp = await fetch('/tools.json');
+        // Updated path to tools.json
+        resp = await fetch('tools.json');
         if (!resp.ok) throw new Error('tools.json not found');
       } catch (e) {
         return console.error('tools.json fetch failed:', e);
@@ -216,8 +233,8 @@
     function makeCard(tool, type) {
       const d = document.createElement('div');
       d.className = 'card animate__animated animate__fadeInUp';
-      d.onclick = () =>
-        window.location.href = `/main_page/${type}/${tool.id}/index.html`;
+      // Updated path without index.html
+      d.onclick = () => window.location.href = `main_page/${type}/${tool.id}/`;
 
       const img = document.createElement('img');
       img.src = tool.icon;
