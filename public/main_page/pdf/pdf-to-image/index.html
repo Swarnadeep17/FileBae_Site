@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Image - FileBae</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #000;
+      --secondary: #fff;
+      --accent: #f0f0f0;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--secondary);
+      color: var(--primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e2e2e2;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .back-btn {
+      display: flex;
+      align-items: center;
+      color: #0077cc;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1rem;
+    }
+    
+    .tool-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+    
+    .tool-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .upload-area {
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--accent);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: #f8f8f8;
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .file-input {
+      display: none;
+    }
+    
+    .progress-container {
+      margin: 2rem 0;
+      display: none;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-text {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .result-container {
+      display: none;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      margin: 1rem 0;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .download-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      border-radius: 8px;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    
+    .download-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">FileBae</a>
+      <button class="back-btn" onclick="window.history.back()">
+        ← Back to Tools
+      </button>
+    </div>
+  </header>
+
+  <main class="tool-container">
+    <div class="tool-title">
+      <h1>PDF to Image Converter</h1>
+      <p>Convert PDF pages to JPG or PNG images instantly</p>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📄</div>
+      <h3>Drag & Drop your PDF here</h3>
+      <p>or click to browse files</p>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">Processing...</div>
+    </div>
+
+    <div class="result-container" id="resultContainer">
+      <h3>Conversion Complete!</h3>
+      <img id="imagePreview" class="image-preview" alt="Converted image">
+      <button id="downloadBtn" class="download-btn">Download Image</button>
+    </div>
+  </main>
+
+  <footer>
+    FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
+  </footer>
+
+  <!-- Include libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <!-- Tool script -->
+  <script src="script.js"></script>
+</body>
+</html>
