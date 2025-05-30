@@ -1,204 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- File: public/main_page/pdf/pdf_to_image/index.html --><!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Convert PDF to high-quality images with FileBae. Fast, free, and privacy-first tool with format, DPI, quality, and OCR options."
-  />
-  <meta
-    name="keywords"
-    content="pdf to image, convert pdf to jpg, pdf converter, filebae, pdf2png, ocr pdf"
-  />
-  <meta name="author" content="FileBae" />
-  <title>PDF to Image — FileBae</title>
-  <link
-    rel="icon"
-    type="image/png"
-    href="../../../assets/favicon.png"
-  />
+  <meta name="description" content="Convert PDF pages to images (JPG, PNG) quickly and accurately. Free, fast PDF to image converter with OCR support." />
+  <meta name="keywords" content="pdf to image, convert pdf, pdf to jpg, pdf to png, extract images, ocr, tesseract" />
+  <title>PDF → Image | FileBae</title>
   <style>
-    body { margin:0; font-family:'Segoe UI',sans-serif; background:#fff; color:#111 }
-    header { text-align:center; padding:2rem 1rem 1rem }
-    h1 { font-size:2.2rem; margin-bottom:0.5rem }
-    h2 { font-weight:normal; font-size:1rem; color:#555 }
-    .tool-container { max-width:900px; margin:auto; padding:2rem 1rem; text-align:center }
-    .upload-box { border:2px dashed #ccc; padding:2rem; border-radius:12px; background:#fafafa }
-    .upload-box input[type="file"] { margin:1rem 0 }
-    .options { margin-top:1rem; text-align:left }
-    .options label { display:block; margin:0.5rem 0 }
-    .controls { margin:1rem 0; text-align:left }
-    .controls label { display:block; margin:0.5rem 0; }
-    .controls input[type="range"] { width:100% }
-    button {
-      background:#000; color:#fff; border:none;
-      padding:0.8rem 1.5rem; border-radius:6px;
-      font-size:1rem; cursor:pointer; margin-top:1rem;
-      width:100%;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #111;
+      margin: 0;
+      padding: 0;
     }
-    .progress { width:100%; margin-top:1rem; display:none }
-    .card-section {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:1rem; margin-top:3rem;
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
     }
-    .card {
-      border:1px solid #eee; border-radius:10px;
-      padding:1.2rem; background:#f8f8f8; transition:0.3s ease;
-    }
-    .card:hover { background:#f0f0f0 }
-    footer {
-      text-align:center; padding:1rem; font-size:0.9rem;
-      background:#f5f5f5; border-top:1px solid #ddd;
-    }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1rem; color: #666; font-weight: normal; }.container {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 2px dashed #000;
+  border-radius: 12px;
+}
+
+label, input, select {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+}
+
+input[type="file"] { padding: 0.4rem; }
+button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+progress {
+  width: 100%;
+  margin-top: 1rem;
+  height: 8px;
+  appearance: none;
+}
+progress::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 5px;
+}
+progress::-webkit-progress-value {
+  background-color: #000;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #f5f5f5;
+  font-size: 0.85rem;
+}
+
   </style>
 </head>
 <body>
   <header>
     <h1>PDF → Image</h1>
     <h2>Customizable, lightning-fast PDF to image conversion</h2>
-  </header>
+  </header>  <div class="container">
+    <form id="pdfForm">
+      <label>Select your PDF (≤15 MB):</label>
+      <input type="file" name="file" accept="application/pdf" required /><label>Output format:</label>
+  <select name="format">
+    <option value="png">PNG</option>
+    <option value="jpeg">JPEG</option>
+    <option value="webp">WEBP</option>
+  </select>
 
-  <section class="tool-container">
-    <div class="upload-box">
-      <form id="pdfForm" enctype="multipart/form-data">
-        <p>Select your PDF (≤15 MB):</p>
-        <input type="file" name="file" accept="application/pdf" required />
+  <label>Quality: <span id="qualityVal">80%</span></label>
+  <input type="range" name="quality" min="30" max="100" value="80" oninput="document.getElementById('qualityVal').textContent = this.value + '%'" />
 
-        <div class="controls">
-          <label>
-            Output format:
-            <select name="format">
-              <option value="png">PNG</option>
-              <option value="jpg">JPG</option>
-              <option value="webp">WEBP</option>
-            </select>
-          </label>
-          <label>
-            Quality: <span id="qualityValue">80%</span>
-            <input
-              type="range" name="quality" min="10" max="100" value="80"
-            />
-          </label>
-          <label>
-            Resolution (DPI):
-            <input
-              type="number" name="dpi" min="72" max="300" value="150"
-              style="width:100px"
-            />
-          </label>
-        </div>
+  <label>Resolution (DPI):</label>
+  <input type="number" name="dpi" value="150" min="72" max="600" />
 
-        <div class="options">
-          <label><input type="checkbox" name="split" /> Split into separate pages</label>
-          <label><input type="checkbox" name="grayscale" /> Grayscale</label>
-          <label><input type="checkbox" name="ocr" /> AI-Powered OCR</label>
-        </div>
+  <label>
+    <input type="checkbox" name="ocr" /> AI-Powered OCR (extract text)
+  </label>
 
-        <button type="submit">Convert PDF to Image</button>
-      </form>
+  <button type="submit">Convert PDF to Image</button>
+  <progress id="progress" value="0" max="100"></progress>
+</form>
+<div id="result"></div>
 
-      <progress id="progressBar" class="progress" value="0" max="100"></progress>
-      <div id="result" style="margin-top:1rem;"></div>
-    </div>
-
-    <div class="card-section">
-      <div class="card"><strong>Instant Conversion</strong><p>Finish in under 5 s.</p></div>
-      <div class="card"><strong>AI-Powered OCR</strong><p>Extract text with Tesseract.js.</p></div>
-      <div class="card"><strong>Privacy First</strong><p>Nothing stored; auto-deleted.</p></div>
-      <div class="card"><strong>Mobile Ready</strong><p>No app install required.</p></div>
-    </div>
-  </section>
-
-  <footer>
+  </div>  <footer>
     FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
-  </footer>
+  </footer>  <script>
+    const form = document.getElementById("pdfForm");
+    const progress = document.getElementById("progress");
+    const result = document.getElementById("result");
 
-  <script>
-    const form = document.getElementById('pdfForm');
-    const progressBar = document.getElementById('progressBar');
-    const resultDiv = document.getElementById('result');
-    const qualitySlider = form.querySelector('input[name="quality"]');
-    const qualityValue = document.getElementById('qualityValue');
-    qualitySlider.oninput = () => qualityValue.textContent = qualitySlider.value + '%';
-
-    form.addEventListener('submit', e => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      resultDiv.innerHTML = '';
-      progressBar.style.display = 'block';
-      progressBar.value = 0;
-
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/pdf-to-image', true);
-
-      // upload: 0–50%
-      xhr.upload.onprogress = evt => {
-        if (evt.lengthComputable) {
-          progressBar.value = Math.min(50, (evt.loaded/evt.total)*50);
-        }
-      };
-      // download+processing: 50–100%
-      xhr.onprogress = evt => {
-        if (evt.lengthComputable) {
-          progressBar.value = 50 + (evt.loaded/evt.total)*50;
-        }
-      };
-
-      xhr.onload = () => {
-        progressBar.value = 100;
-        setTimeout(()=> progressBar.style.display='none', 300);
-
-        if (xhr.status !== 200) {
-          alert('Conversion failed. Please try again.');
-          return;
-        }
-        const res = JSON.parse(xhr.responseText);
-
-        // render & auto-download
-        res.images.forEach((img, i) => {
-          const dataUrl = `data:${img.type};base64,${img.base64}`;
-          const imageEl = new Image();
-          imageEl.src = dataUrl;
-          imageEl.style.maxWidth = '100%';
-          imageEl.style.margin = '1rem 0';
-          resultDiv.appendChild(imageEl);
-
-          setTimeout(() => {
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = img.name;
-            a.click();
-          }, i * 400);
-        });
-
-        // OCR text
-        if (res.extractedText?.length) {
-          const sec = document.createElement('section');
-          sec.innerHTML = '<h3>Extracted Text (OCR)</h3>';
-          res.extractedText.forEach(p => {
-            const pre = document.createElement('pre');
-            pre.textContent = `Page ${p.page}:\n${p.text}`;
-            sec.appendChild(pre);
-          });
-          resultDiv.appendChild(sec);
-        }
-      };
-
-      xhr.onerror = () => {
-        alert('Network error. Try again.');
-        progressBar.style.display = 'none';
-      };
-
       const file = form.file.files[0];
-      if (file.size > 15*1024*1024) {
-        alert('Max 15 MB for free plan.');
-        progressBar.style.display = 'none';
-        return;
-      }
+      if (!file) return alert("Please select a file");
+      if (file.size > 15 * 1024 * 1024) return alert("Max file size is 15MB");
 
-      const fd = new FormData(form);
-      xhr.send(fd);
+      const formData = new FormData(form);
+      progress.value = 5;
+
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://us-central1-filebae-13715.cloudfunctions.net/pdfToImage", true);
+
+        xhr.onload = function () {
+          if (xhr.status !== 200) return alert("Conversion failed.");
+          progress.value = 100;
+          const res = JSON.parse(xhr.responseText);
+
+          res.images.forEach((img, i) => {
+            const dataUrl = `data:${img.type};base64,${img.base64}`;
+            const image = new Image();
+            image.src = dataUrl;
+            image.alt = img.name;
+            image.style.maxWidth = "100%";
+            image.style.border = "1px solid #ccc";
+            image.style.margin = "1rem 0";
+
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = img.name;
+            link.appendChild(image);
+            result.appendChild(link);
+
+            setTimeout(() => link.click(), i * 400);
+          });
+        };
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 80);
+            progress.value = percent;
+          }
+        };
+
+        xhr.send(formData);
+      } catch (err) {
+        alert("Error: " + err.message);
+        console.error(err);
+      }
     });
-  </script>
-</body>
+  </script></body>
 </html>
