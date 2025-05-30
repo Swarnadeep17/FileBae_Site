@@ -5,36 +5,10 @@
         "id": "pdf_to_image",
         "name": "PDF to Image",
         "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
-      },
-      {
-        "id": "pdf_to_word",
-        "name": "PDF to Word",
-        "icon": "https://cdn-icons-png.flaticon.com/512/337/337932.png"
-      },
-      {
-        "id": "pdf_to_excel",
-        "name": "PDF to Excel",
-        "icon": "https://cdn-icons-png.flaticon.com/512/337/337959.png"
       }
     ]
   },
   "image": {
-    "tools": [
-      {
-        "id": "image_to_pdf",
-        "name": "Image to PDF",
-        "icon": "https://cdn-icons-png.flaticon.com/512/337/337950.png"
-      },
-      {
-        "id": "image_compressor",
-        "name": "Image Compressor",
-        "icon": "https://cdn-icons-png.flaticon.com/512/1829/1829586.png"
-      },
-      {
-        "id": "image_to_text",
-        "name": "Image to Text (OCR)",
-        "icon": "https://cdn-icons-png.flaticon.com/512/3159/3159381.png"
-      }
-    ]
+    "tools": []
   }
 }
