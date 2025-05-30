@@ -26,6 +26,6 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          firebase deploy --only hosting --project filebae-13715
+          firebase deploy --only hosting,functions --project filebae-13715
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
