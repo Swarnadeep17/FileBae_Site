@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Convert PDF to high-quality images with FileBae. Fast, free, privacy-first PDF→Image conversion with AI options." />
-  <meta name="keywords" content="pdf to image, convert pdf to jpg, pdf converter, filebae, image from pdf, ocr pdf, pdf2img" />
-  <meta name="author" content="FileBae">
+  <meta
+    name="description"
+    content="Convert PDF to high-quality images with FileBae. Fast, free, and privacy-first tool with format, DPI, quality, and OCR options."
+  />
+  <meta
+    name="keywords"
+    content="pdf to image, convert pdf to jpg, pdf converter, filebae, pdf2png, ocr pdf"
+  />
+  <meta name="author" content="FileBae" />
   <title>PDF to Image — FileBae</title>
-  <link rel="icon" type="image/png" href="../../../assets/favicon.png" />
-
+  <link
+    rel="icon"
+    type="image/png"
+    href="../../../assets/favicon.png"
+  />
   <style>
-    body { margin:0; font-family:'Segoe UI',sans-serif; background:#fff; color:#111; }
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:#fff; color:#111 }
     header { text-align:center; padding:2rem 1rem 1rem }
     h1 { font-size:2.2rem; margin-bottom:0.5rem }
     h2 { font-weight:normal; font-size:1rem; color:#555 }
@@ -19,12 +28,29 @@
     .upload-box input[type="file"] { margin:1rem 0 }
     .options { margin-top:1rem; text-align:left }
     .options label { display:block; margin:0.5rem 0 }
-    button { background:#000; color:#fff; border:none; padding:0.8rem 1.5rem; border-radius:6px; font-size:1rem; cursor:pointer; margin-top:1rem; width:100% }
+    .controls { margin:1rem 0; text-align:left }
+    .controls label { display:block; margin:0.5rem 0; }
+    .controls input[type="range"] { width:100% }
+    button {
+      background:#000; color:#fff; border:none;
+      padding:0.8rem 1.5rem; border-radius:6px;
+      font-size:1rem; cursor:pointer; margin-top:1rem;
+      width:100%;
+    }
     .progress { width:100%; margin-top:1rem; display:none }
-    .card-section { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:3rem }
-    .card { border:1px solid #eee; border-radius:10px; padding:1.2rem; background:#f8f8f8; transition:0.3s ease }
+    .card-section {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:1rem; margin-top:3rem;
+    }
+    .card {
+      border:1px solid #eee; border-radius:10px;
+      padding:1.2rem; background:#f8f8f8; transition:0.3s ease;
+    }
     .card:hover { background:#f0f0f0 }
-    footer { text-align:center; padding:1rem; font-size:0.9rem; background:#f5f5f5; border-top:1px solid #ddd }
+    footer {
+      text-align:center; padding:1rem; font-size:0.9rem;
+      background:#f5f5f5; border-top:1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -38,11 +64,37 @@
       <form id="pdfForm" enctype="multipart/form-data">
         <p>Select your PDF (≤15 MB):</p>
         <input type="file" name="file" accept="application/pdf" required />
-        <div class="options">
-          <label><input type="checkbox" name="split" /> Split into separate images per page</label>
-          <label><input type="checkbox" name="grayscale" /> Convert to grayscale</label>
-          <label><input type="checkbox" name="ocr" /> AI-Powered OCR (extract text)</label>
+
+        <div class="controls">
+          <label>
+            Output format:
+            <select name="format">
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+              <option value="webp">WEBP</option>
+            </select>
+          </label>
+          <label>
+            Quality: <span id="qualityValue">80%</span>
+            <input
+              type="range" name="quality" min="10" max="100" value="80"
+            />
+          </label>
+          <label>
+            Resolution (DPI):
+            <input
+              type="number" name="dpi" min="72" max="300" value="150"
+              style="width:100px"
+            />
+          </label>
         </div>
+
+        <div class="options">
+          <label><input type="checkbox" name="split" /> Split into separate pages</label>
+          <label><input type="checkbox" name="grayscale" /> Grayscale</label>
+          <label><input type="checkbox" name="ocr" /> AI-Powered OCR</label>
+        </div>
+
         <button type="submit">Convert PDF to Image</button>
       </form>
 
@@ -51,10 +103,10 @@
     </div>
 
     <div class="card-section">
-      <div class="card"><strong>Instant Conversion</strong><p>Under 5 seconds via cloud processing.</p></div>
-      <div class="card"><strong>AI-Powered OCR</strong><p>Extract text from scans with Tesseract.js.</p></div>
-      <div class="card"><strong>Privacy First</strong><p>Files auto-deleted; nothing stored.</p></div>
-      <div class="card"><strong>Mobile Ready</strong><p>Optimized for phones, tablets & desktop.</p></div>
+      <div class="card"><strong>Instant Conversion</strong><p>Finish in under 5 s.</p></div>
+      <div class="card"><strong>AI-Powered OCR</strong><p>Extract text with Tesseract.js.</p></div>
+      <div class="card"><strong>Privacy First</strong><p>Nothing stored; auto-deleted.</p></div>
+      <div class="card"><strong>Mobile Ready</strong><p>No app install required.</p></div>
     </div>
   </section>
 
@@ -66,6 +118,9 @@
     const form = document.getElementById('pdfForm');
     const progressBar = document.getElementById('progressBar');
     const resultDiv = document.getElementById('result');
+    const qualitySlider = form.querySelector('input[name="quality"]');
+    const qualityValue = document.getElementById('qualityValue');
+    qualitySlider.oninput = () => qualityValue.textContent = qualitySlider.value + '%';
 
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -74,77 +129,75 @@
       progressBar.value = 0;
 
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/pdf-to-image');
+      xhr.open('POST', '/api/pdf-to-image', true);
 
-      // Upload progress: 0–50%
-      xhr.upload.onprogress = event => {
-        if (event.lengthComputable) {
-          progressBar.value = Math.min(50, (event.loaded / event.total) * 50);
+      // upload: 0–50%
+      xhr.upload.onprogress = evt => {
+        if (evt.lengthComputable) {
+          progressBar.value = Math.min(50, (evt.loaded/evt.total)*50);
         }
       };
-
-      // Download / processing progress: 50–100%
-      xhr.onprogress = event => {
-        if (event.lengthComputable) {
-          progressBar.value = 50 + ((event.loaded / event.total) * 50);
+      // download+processing: 50–100%
+      xhr.onprogress = evt => {
+        if (evt.lengthComputable) {
+          progressBar.value = 50 + (evt.loaded/evt.total)*50;
         }
       };
 
       xhr.onload = () => {
         progressBar.value = 100;
-        progressBar.style.display = 'none';
+        setTimeout(()=> progressBar.style.display='none', 300);
 
         if (xhr.status !== 200) {
           alert('Conversion failed. Please try again.');
           return;
         }
-
         const res = JSON.parse(xhr.responseText);
 
-        // Render images + auto-download
-        res.images.forEach((img, idx) => {
+        // render & auto-download
+        res.images.forEach((img, i) => {
           const dataUrl = `data:${img.type};base64,${img.base64}`;
-          // Thumbnail
           const imageEl = new Image();
           imageEl.src = dataUrl;
           imageEl.style.maxWidth = '100%';
           imageEl.style.margin = '1rem 0';
           resultDiv.appendChild(imageEl);
-          // Trigger download
+
           setTimeout(() => {
             const a = document.createElement('a');
             a.href = dataUrl;
             a.download = img.name;
             a.click();
-          }, idx * 300);
+          }, i * 400);
         });
 
-        // Render OCR text if present
+        // OCR text
         if (res.extractedText?.length) {
-          const textSec = document.createElement('section');
-          textSec.innerHTML = '<h3>Extracted Text (OCR)</h3>';
-          res.extractedText.forEach(page => {
-            const block = document.createElement('pre');
-            block.textContent = `Page ${page.page}:\n${page.text}`;
-            textSec.appendChild(block);
+          const sec = document.createElement('section');
+          sec.innerHTML = '<h3>Extracted Text (OCR)</h3>';
+          res.extractedText.forEach(p => {
+            const pre = document.createElement('pre');
+            pre.textContent = `Page ${p.page}:\n${p.text}`;
+            sec.appendChild(pre);
           });
-          resultDiv.appendChild(textSec);
+          resultDiv.appendChild(sec);
         }
       };
 
       xhr.onerror = () => {
-        alert('Network error. Please try again.');
+        alert('Network error. Try again.');
         progressBar.style.display = 'none';
       };
 
-      const formData = new FormData(form);
-      const file = form.querySelector('input[type="file"]').files[0];
-      if (file.size > 15 * 1024 * 1024) {
-        alert('File too large—max 15 MB for free plan.');
+      const file = form.file.files[0];
+      if (file.size > 15*1024*1024) {
+        alert('Max 15 MB for free plan.');
         progressBar.style.display = 'none';
         return;
       }
-      xhr.send(formData);
+
+      const fd = new FormData(form);
+      xhr.send(fd);
     });
   </script>
 </body>
