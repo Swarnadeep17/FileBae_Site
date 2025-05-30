@@ -1,14 +1,17 @@
 {
   "pdf": {
+    "name": "PDF Tools",
     "tools": [
       {
-        "id": "pdf_to_image",
+        "id": "pdf-to-image",
         "name": "PDF to Image",
-        "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
+        "icon": "https://cdn-icons-png.flaticon.com/512/337/337946.png",
+        "description": "Convert PDF pages to JPG or PNG images"
       }
     ]
   },
   "image": {
+    "name": "Image Tools",
     "tools": []
   }
 }
