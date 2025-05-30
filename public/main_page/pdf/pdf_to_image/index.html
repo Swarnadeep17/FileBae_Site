@@ -2,44 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Convert PDF to high-quality images with FileBae. Fast, free, privacy-first, with AI-powered OCR and customizable quality, resolution, and format." />
-  <meta name="keywords" content="pdf to image, convert pdf to jpg, pdf to png, webp, tiff, image quality slider, dpi, free pdf converter, FileBae" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert PDF to high-quality images with FileBae. Fast, free, privacy-first PDF→Image conversion with AI options." />
+  <meta name="keywords" content="pdf to image, convert pdf to jpg, pdf converter, filebae, image from pdf, ocr pdf, pdf2img" />
   <meta name="author" content="FileBae">
-  <title>PDF → Image | FileBae</title>
-  <link rel="icon" href="../../../assets/favicon.png" type="image/png" />
+  <title>PDF to Image — FileBae</title>
+  <link rel="icon" type="image/png" href="../../../assets/favicon.png" />
+
   <style>
-    body { margin:0; font-family:'Segoe UI',sans-serif; background:#fff; color:#111 }
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:#fff; color:#111; }
     header { text-align:center; padding:2rem 1rem 1rem }
-    h1 { font-size:2.2rem; margin-bottom:.5rem }
+    h1 { font-size:2.2rem; margin-bottom:0.5rem }
     h2 { font-weight:normal; font-size:1rem; color:#555 }
-    .tool-container { max-width:900px; margin: auto; padding:2rem 1rem; }
-    .upload-box { border:2px dashed #000; padding:2rem; border-radius:12px; background:#fafafa; }
-    .upload-box input[type="file"] { display:block; margin:1rem auto }
-    .options { margin-top:1.5rem; }
-    .options label { display:block; margin:0.5rem 0; }
-    .options select,
-    .options input[type="number"],
-    .options input[type="range"] { width:100%; margin-top:.3rem }
-    button { background:#000; color:#fff; border:none; padding:.8rem 1.5rem; border-radius:6px; font-size:1rem; cursor:pointer; margin-top:1rem; display:block; width:100% }
-    .progress-bar { width:100%; height:8px; background:#eee; border-radius:4px; overflow:hidden; margin:1.5rem 0; display:none }
-    .progress-bar div { height:100%; width:0; background:#000; transition:width .2s ease }
-    .thumbnails { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-top:2rem }
-    .thumb { text-align:center }
-    .thumb img { max-width:100%; border:1px solid #ccc; border-radius:6px }
-    .ocr-text { max-width:900px; margin:2rem auto; }
-    .ocr-text h3 { margin-bottom:.5rem }
-    footer { text-align:center; padding:1rem; font-size:.9rem; background:#f5f5f5; border-top:1px solid #ddd }
-    @media (max-width:600px){
-      .options select,
-      .options input[type="number"],
-      .options input[type="range"],
-      button { font-size:.9rem }
-    }
+    .tool-container { max-width:900px; margin:auto; padding:2rem 1rem; text-align:center }
+    .upload-box { border:2px dashed #ccc; padding:2rem; border-radius:12px; background:#fafafa }
+    .upload-box input[type="file"] { margin:1rem 0 }
+    .options { margin-top:1rem; text-align:left }
+    .options label { display:block; margin:0.5rem 0 }
+    button { background:#000; color:#fff; border:none; padding:0.8rem 1.5rem; border-radius:6px; font-size:1rem; cursor:pointer; margin-top:1rem; width:100% }
+    .progress { width:100%; margin-top:1rem; display:none }
+    .card-section { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:3rem }
+    .card { border:1px solid #eee; border-radius:10px; padding:1.2rem; background:#f8f8f8; transition:0.3s ease }
+    .card:hover { background:#f0f0f0 }
+    footer { text-align:center; padding:1rem; font-size:0.9rem; background:#f5f5f5; border-top:1px solid #ddd }
   </style>
 </head>
 <body>
-
   <header>
     <h1>PDF → Image</h1>
     <h2>Customizable, lightning-fast PDF to image conversion</h2>
@@ -50,38 +38,24 @@
       <form id="pdfForm" enctype="multipart/form-data">
         <p>Select your PDF (≤15 MB):</p>
         <input type="file" name="file" accept="application/pdf" required />
-
         <div class="options">
-          <label>
-            Output format:
-            <select name="format">
-              <option value="png">PNG</option>
-              <option value="jpg">JPG</option>
-              <option value="webp">WEBP</option>
-              <option value="tiff">TIFF</option>
-            </select>
-          </label>
-          <label>
-            Quality: <span id="qualityVal">80</span>%
-            <input type="range" name="quality" min="10" max="100" value="80" />
-          </label>
-          <label>
-            Resolution (DPI):
-            <input type="number" name="dpi" min="72" max="300" value="150" />
-          </label>
-          <label>
-            <input type="checkbox" name="ocr" /> AI-Powered OCR (extract text)
-          </label>
+          <label><input type="checkbox" name="split" /> Split into separate images per page</label>
+          <label><input type="checkbox" name="grayscale" /> Convert to grayscale</label>
+          <label><input type="checkbox" name="ocr" /> AI-Powered OCR (extract text)</label>
         </div>
-
         <button type="submit">Convert PDF to Image</button>
       </form>
 
-      <div class="progress-bar" id="progressBar"><div></div></div>
+      <progress id="progressBar" class="progress" value="0" max="100"></progress>
+      <div id="result" style="margin-top:1rem;"></div>
     </div>
 
-    <div class="thumbnails" id="thumbContainer"></div>
-    <div class="ocr-text" id="ocrOutput"></div>
+    <div class="card-section">
+      <div class="card"><strong>Instant Conversion</strong><p>Under 5 seconds via cloud processing.</p></div>
+      <div class="card"><strong>AI-Powered OCR</strong><p>Extract text from scans with Tesseract.js.</p></div>
+      <div class="card"><strong>Privacy First</strong><p>Files auto-deleted; nothing stored.</p></div>
+      <div class="card"><strong>Mobile Ready</strong><p>Optimized for phones, tablets & desktop.</p></div>
+    </div>
   </section>
 
   <footer>
@@ -89,96 +63,89 @@
   </footer>
 
   <script>
-    (function(){
-      const form     = document.getElementById('pdfForm');
-      const bar      = document.getElementById('progressBar');
-      const fill     = bar.querySelector('div');
-      const thumbs   = document.getElementById('thumbContainer');
-      const ocrBox   = document.getElementById('ocrOutput');
-      const quality  = form.quality;
-      const qualityVal = document.getElementById('qualityVal');
+    const form = document.getElementById('pdfForm');
+    const progressBar = document.getElementById('progressBar');
+    const resultDiv = document.getElementById('result');
 
-      quality.addEventListener('input', ()=> qualityVal.textContent = quality.value);
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      resultDiv.innerHTML = '';
+      progressBar.style.display = 'block';
+      progressBar.value = 0;
 
-      form.addEventListener('submit', async e => {
-        e.preventDefault();
-        thumbs.innerHTML = '';
-        ocrBox.innerHTML = '';
-        bar.style.display = 'block';
-        fill.style.width = '0%';
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/pdf-to-image');
 
-        const file = form.file.files[0];
-        if (!file) return alert('Please select a PDF file.');
-        if (file.size > 15*1024*1024) {
-          return alert('Free plan limit is 15 MB. Upgrade coming soon!');
+      // Upload progress: 0–50%
+      xhr.upload.onprogress = event => {
+        if (event.lengthComputable) {
+          progressBar.value = Math.min(50, (event.loaded / event.total) * 50);
+        }
+      };
+
+      // Download / processing progress: 50–100%
+      xhr.onprogress = event => {
+        if (event.lengthComputable) {
+          progressBar.value = 50 + ((event.loaded / event.total) * 50);
+        }
+      };
+
+      xhr.onload = () => {
+        progressBar.value = 100;
+        progressBar.style.display = 'none';
+
+        if (xhr.status !== 200) {
+          alert('Conversion failed. Please try again.');
+          return;
         }
 
-        const data = new FormData(form);
-        const url  = '/api/pdf-to-image'; // rewrites to your function
+        const res = JSON.parse(xhr.responseText);
 
-        // simulate progress every 5%
-        let pct = 0;
-        const prog = setInterval(()=>{
-          pct = Math.min(pct+5, 95);
-          fill.style.width = pct+'%';
-        }, 300);
-
-        const res = await fetch(url, { method:'POST', body:data });
-        clearInterval(prog);
-
-        if (!res.ok) {
-          bar.style.display='none';
-          return alert('Conversion failed. Try again.');
-        }
-
-        const result = await res.json();
-        fill.style.width = '100%';
-
-        // thumbnails + auto-download
-        result.images.forEach((img, i) => {
-          const blob = Uint8Array.from(atob(img.base64), c=>c.charCodeAt(0));
-          const fileBlob = new Blob([blob], { type: img.type });
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(fileBlob);
-          link.download = img.name;
-
-          // thumbnail
-          const div = document.createElement('div');
-          div.className = 'thumb';
-          const image = new Image();
-          image.src = link.href;
-          image.alt = img.name;
-          div.appendChild(image);
-          thumbs.appendChild(div);
-
-          // auto-download
-          setTimeout(()=> link.click(), i * 500);
+        // Render images + auto-download
+        res.images.forEach((img, idx) => {
+          const dataUrl = `data:${img.type};base64,${img.base64}`;
+          // Thumbnail
+          const imageEl = new Image();
+          imageEl.src = dataUrl;
+          imageEl.style.maxWidth = '100%';
+          imageEl.style.margin = '1rem 0';
+          resultDiv.appendChild(imageEl);
+          // Trigger download
+          setTimeout(() => {
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = img.name;
+            a.click();
+          }, idx * 300);
         });
 
-        // OCR text
-        if (form.ocr.checked && result.extractedText?.length) {
-          const h3 = document.createElement('h3');
-          h3.textContent = 'Extracted Text (OCR)';
-          ocrBox.appendChild(h3);
-
-          result.extractedText.forEach(p => {
+        // Render OCR text if present
+        if (res.extractedText?.length) {
+          const textSec = document.createElement('section');
+          textSec.innerHTML = '<h3>Extracted Text (OCR)</h3>';
+          res.extractedText.forEach(page => {
             const block = document.createElement('pre');
-            block.style.whiteSpace = 'pre-wrap';
-            block.textContent = `Page ${p.page}:\n${p.text}`;
-            ocrBox.appendChild(block);
+            block.textContent = `Page ${page.page}:\n${page.text}`;
+            textSec.appendChild(block);
           });
+          resultDiv.appendChild(textSec);
         }
+      };
 
-        // cleanup message
-        setTimeout(()=>{
-          alert('Temporary files cleaned up on server.');
-        }, 500);
+      xhr.onerror = () => {
+        alert('Network error. Please try again.');
+        progressBar.style.display = 'none';
+      };
 
-        // hide progress after short delay
-        setTimeout(()=> bar.style.display = 'none', 1000);
-      });
-    })();
+      const formData = new FormData(form);
+      const file = form.querySelector('input[type="file"]').files[0];
+      if (file.size > 15 * 1024 * 1024) {
+        alert('File too large—max 15 MB for free plan.');
+        progressBar.style.display = 'none';
+        return;
+      }
+      xhr.send(formData);
+    });
   </script>
-
 </body>
 </html>
