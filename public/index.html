@@ -4,10 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="FileBae — Simple, fast, and secure tools to convert and manage your PDFs, images, and more.">
-  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools">
+  <meta name="keywords" content="filebae, PDF tools, image converter, file converter online, free tools, convert pdf, convert image, online file tools, document converter">
   <meta name="author" content="FileBae">
   <title>FileBae — Convert Files Without the Clutter</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
   <style>
     body {
       margin: 0;
@@ -88,13 +90,13 @@
 </head>
 <body>
 
-  <header>
+  <header class="animate__animated animate__fadeInDown">
     <h1>FileBae</h1>
     <h2>Convert files instantly. No ads. No clutter. Just tools that work.</h2>
   </header>
 
   <!-- 1) Choose file type -->
-  <section id="category-select" class="category-grid">
+  <section id="category-select" class="category-grid animate__animated animate__fadeInUp">
     <div class="card" onclick="showTools('pdf')">
       <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Tools">
       <div>PDF Tools</div>
@@ -105,16 +107,16 @@
     </div>
   </section>
 
-  <div id="goBack" class="back-button hidden" onclick="goBack()">
+  <div id="goBack" class="back-button hidden animate__animated animate__fadeIn">
     ← Back to File Types
   </div>
 
-  <!-- 2) Sub-tool grids (populated from tools.json) -->
-  <section id="pdf-tools" class="tool-grid hidden"></section>
-  <section id="image-tools" class="tool-grid hidden"></section>
+  <!-- 2) Sub-tool grids -->
+  <section id="pdf-tools" class="tool-grid hidden animate__animated animate__fadeInUp"></section>
+  <section id="image-tools" class="tool-grid hidden animate__animated animate__fadeInUp"></section>
 
   <!-- 3) Highlight/USP cards -->
-  <section class="highlight-cards">
+  <section class="highlight-cards animate__animated animate__fadeInUp">
     <div class="highlight">
       <h3>Instant & Unlimited</h3>
       <p>Convert as many files as you like—no daily caps and results in seconds.</p>
@@ -134,7 +136,7 @@
   </section>
 
   <!-- 4) Descriptive article -->
-  <section class="article">
+  <section class="article animate__animated animate__fadeIn">
     <h2>Clean. Fast. File tools that respect your time.</h2>
     <p>
       Let’s be honest—most file converters are bloated and slow. FileBae strips
@@ -157,12 +159,11 @@
     </p>
   </section>
 
-  <footer>
+  <footer class="animate__animated animate__fadeInUp">
     FileBae is built for humans. No logins. No noise. Just pure, efficient tools.
   </footer>
 
   <script>
-    // load tools.json and populate
     async function loadTools() {
       const resp = await fetch('tools.json');
       const data = await resp.json();
@@ -176,9 +177,8 @@
 
     function makeCard(tool, type) {
       const d = document.createElement('div');
-      d.className = 'card';
-      d.onclick = () => 
-        window.location.href = `main_page/${type}/${tool.id}/index.html`;
+      d.className = 'card animate__animated animate__fadeInUp';
+      d.onclick = () => window.location.href = `main_page/${type}/${tool.id}/index.html`;
       const img = document.createElement('img');
       img.src = tool.icon;
       img.alt = tool.name;
