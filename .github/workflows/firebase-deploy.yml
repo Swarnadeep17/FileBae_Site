@@ -26,6 +26,6 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          firebase deploy --only hosting,functions --project filebae-13715
+          firebase deploy --only functions:pdfToImage
         env:
           GOOGLE_APPLICATION_CREDENTIALS: service-account.json
